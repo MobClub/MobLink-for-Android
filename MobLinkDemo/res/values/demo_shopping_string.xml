@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/tools">
+    <string-array name="goods_name">
+        <item>Apple iPhone 7 Plus 32G 玫瑰金色 移动联通电信4G手机</item>
+        <item>安儿欣babiSafe宽口径玻璃吸管奶瓶180- 300ml 带硅胶保护层</item>
+        <item>休闲时尚 母婴背包</item>
+        <item>好奇Huggies铂金装倍柔亲肤纸尿裤特供装中号M92片</item>
+        <item>英国原装Cow&amp;Gate牛栏宝宝奶粉四段2-3+</item>
+        <item>五个小卡车Five rucks湿巾儿童湿巾婴儿手口湿巾一包80抽3包</item>
+        <item>飞利浦空气净化器除甲醛除雾霾除尘除菌</item>
+        <item>巴黎欧莱雅美发无硅油控油去屑洗发水露护发素套装正品女滋养柔顺</item>
+        <item>Clear清扬去屑控油洗发水活力运动薄荷型男士洗发露乳正品</item>
+    </string-array>
+    
+    <string-array name="goods_price">
+        <item>￥6388</item>
+        <item>￥33</item>
+        <item>￥148</item>
+        <item>￥144</item>
+        <item>￥285</item>
+        <item>￥38</item>
+        <item>￥144</item>
+        <item>￥285</item>
+        <item>￥148</item>        
+    </string-array>
+
+    <string-array name="goods_sales">
+        <item>月销280</item>
+        <item>月销80</item>
+        <item>月销98</item>
+        <item>月销890</item>
+        <item>月销630</item>
+        <item>月销180</item>
+        <item>月销110</item>
+        <item>月销403</item>
+        <item>月销348</item>
+    </string-array>
+    
+    <string name="goods_sug01_name">黑客防摔手机壳膜套装iPhone 7 Plus5.5英寸</string>
+    <string name="goods_sug01_price">￥53.9</string>
+    <string name="goods_sug02_name">Zippo 小幸运-挚爱之礼推荐 *新机不含油，需加油后才能正常使用</string>
+    <string name="goods_sug02_price">￥420</string>
+    <string name="goods_sug03_name">华尔兹智薄扫地机器人 红外线超微距感应 微电流智能检测</string>
+    <string name="goods_sug03_price">￥798</string>
+</resources>

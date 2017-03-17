@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/tools">
+    <string-array name="video_name">
+        <item>三生三世十里桃花</item>
+        <item>战火中的兄弟</item>
+        <item>乱世丽人行</item>
+        <item>微微一笑很倾城</item>
+        <item>妈妈向前冲冲冲</item>
+        <item>双喜盈门</item>
+        <item>孤战</item>
+        <item>锦绣未央</item>
+        <item>爱，来的刚好</item>
+    </string-array>
+    
+    <string-array name="video_url">
+        <item>http://player.youku.com/embed/XMjQ4MTc0ODMyOA==</item>
+        <item>http://player.youku.com/embed/XMjQ5NDk0NTk4NA==</item>
+        <item>http://player.youku.com/embed/XMTg5MzczNjg5Mg==</item>
+        <item>http://player.youku.com/embed/XMTY5NDg2MzY5Ng==</item>
+        <item>http://player.youku.com/embed/XMjUwMjI4MzYwNA==</item>
+        <item>http://player.youku.com/embed/XMjQ3ODg2Njc3Mg==</item>
+        <item>http://player.youku.com/embed/XMTg5NTI2NDQxNg==</item>
+        <item>http://player.youku.com/embed/XMTgxNTAyNzA2NA==</item>
+        <item>http://player.youku.com/embed/XMjQ5MDY0NjA1Ng==</item>
+    </string-array>
+    
+    <string name="video_sug01_name">神探夏洛克 第4季</string>
+    <string name="video_sug01_play_times">5.7亿次播放</string>
+    <string name="video_sug01_play_url">http://player.youku.com/embed/XMTg5NDUxNDYyNA==</string>
+    
+    <string name="video_sug02_name">放弃我抓紧我</string>
+    <string name="video_sug02_play_times">20.6亿次播放</string>
+    <string name="video_sug02_play_url">http://player.youku.com/embed/XMTg2MDEyMzQxMg==</string>
+    
+    <string name="video_sug03_name">守护丽人</string>
+    <string name="video_sug03_play_times">1986.7万次播放</string>
+    <string name="video_sug03_play_url">http://player.youku.com/embed/XMTg5NDU2OTI5Mg==</string>
+    
+    <string name="video_sug04_name">淘气爷孙</string>
+    <string name="video_sug04_play_times">1057.6次播放</string>
+    <string name="video_sug04_play_url">http://player.youku.com/embed/XMjQ4Nzc1MDgyMA==</string>
+</resources>

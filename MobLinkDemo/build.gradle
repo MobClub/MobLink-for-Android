@@ -1,0 +1,17 @@
+apply plugin: 'com.android.application'
+apply from: '../AS-Proj-MobLink/EclipseModule.gradle'
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("../demokey.keystore")
+            storePassword "123456"
+            keyAlias "demokey.keystore"
+            keyPassword "123456"
+        }
+    }
+}
+
+dependencies {
+    compile project(':MobLink')
+}
