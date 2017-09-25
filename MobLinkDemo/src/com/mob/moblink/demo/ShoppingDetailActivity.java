@@ -1,34 +1,24 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.mob.moblink.ActionListener;
 import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
+import com.mob.moblink.SceneRestorable;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
-
-public class ShoppingDetailActivity extends Activity implements View.OnClickListener{
-
-	private ImageView ivBack;
+public class ShoppingDetailActivity extends BaseActivity implements SceneRestorable {
+	private static final String TAG = "NewsDetailActivity";
 	private TextView tvShare;
 	private TextView tvTitle;
 	private ImageView ivGoodsIcon;
@@ -38,7 +28,6 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 	private View goodsSug02;
 	private View goodsSug03;
 
-	private Dialog dialog;
 	private int goodsID;
 	private String mobID;
 	private int goodsShareIcon;
@@ -49,7 +38,6 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_shopping_detail);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		tvShare = (TextView) findViewById(R.id.tv_share);
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		ivGoodsIcon = (ImageView) findViewById(R.id.iv_goods_icon);
@@ -59,73 +47,21 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 		goodsSug02 = findViewById(R.id.rl_goods_sug02);
 		goodsSug03 = findViewById(R.id.rl_goods_sug03);
 
-		ivBack.setOnClickListener(this);
 		tvShare.setOnClickListener(this);
 		goodsSug01.setOnClickListener(this);
 		goodsSug02.setOnClickListener(this);
 		goodsSug03.setOnClickListener(this);
 
 		mobIdCache = new HashMap<Integer, String>();
-	}
 
-	protected void onResume() {
-		super.onResume();
 		if (getIntent() != null) {
 			goodsID = getIntent().getIntExtra("position", goodsID);
 			setGoodsDetail();
 		}
-		MobLink.initSDK(this, CommonUtils.APPKEY);
-		MobLink.setIntentHandler(getIntent(), new ActionListener() {
-			public void onResult(final HashMap<String, Object> res) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						String paramStr = "";
-						String sourceStr = null;
-						if (res != null) {
-							if (res.get("source") != null) {
-								sourceStr = String.valueOf(res.get("source"));
-							}
-							if (res.get("params") != null) {
-								HashMap<String, Object> params = (HashMap<String, Object>) res.get("params");
-								for (Map.Entry<String, Object> entry : params.entrySet()) {
-									if ("goodsID".equals(entry.getKey()) || "id".equals(entry.getKey())) {
-										goodsID = Integer.parseInt(String.valueOf(entry.getValue()));
-										setGoodsDetail();
-									}
-									paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
-								}
-							}
-						}
-
-						if (dialog != null && dialog.isShowing()) {
-							dialog.dismiss();
-						}
-						dialog = CommonUtils.getDialog(ShoppingDetailActivity.this, CommonUtils.SHOPPING_PATH, sourceStr, paramStr);
-						dialog.show();
-					}
-				});
-			}
-			public void onError(Throwable t) {
-				if (t != null) {
-					Toast.makeText(ShoppingDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-
-		setIntent(null);
-	}
-
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, ShoppingActivity.class);
-				startActivity(i);
-			} break;
 			case R.id.tv_share: {
 				//分享
 				getMobIDToShare();
@@ -142,8 +78,9 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 				goodsID = 102;
 				setGoodsDetail();
 			} break;
-			default:
-			break;
+			default: {
+				super.onClick(v);
+			} break;
 		}
 	}
 	private void setGoodsDetail() {
@@ -195,12 +132,15 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 		}
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("goodsID", goodsID);
-		MobLink.getMobID(params, CommonUtils.SHOPPING_PATH, CommonUtils.SHOPPING_SOURCE, new ActionListener() {
-			public void onResult(HashMap<String, Object> params) {
-				if (params != null && params.containsKey("mobID")) {
-					mobID = String.valueOf(params.get("mobID"));
+		Scene s = new Scene();
+		s.path = CommonUtils.SHOPPING_PATH;
+		s.source = CommonUtils.SHOPPING_SOURCE;
+		s.params = params;
+		MobLink.getMobID(s, new ActionListener<String>() {
+			public void onResult(String mobID) {
+				if (mobID != null) {
+					ShoppingDetailActivity.this.mobID = mobID;
 					mobIdCache.put(goodsID, mobID);
-					Log.i("Get mobID success ==>> ", mobID);
 				} else {
 					Toast.makeText(ShoppingDetailActivity.this, "Get MobID Failed!", Toast.LENGTH_SHORT).show();
 				}
@@ -219,11 +159,48 @@ public class ShoppingDetailActivity extends Activity implements View.OnClickList
 	private void share() {
 		String shareUrl = CommonUtils.SHARE_URL + CommonUtils.SHOPPING_PATH + "/" + goodsID;
 		if (!TextUtils.isEmpty(mobID)) {
-			shareUrl += "/?mobid=" + mobID;
+			shareUrl += "?mobid=" + mobID;
 		}
 		String title = tvGoodsDetail.getText().toString();
 		String text = tvGoodsDetail.getText().toString();
 		String imgPath = CommonUtils.copyImgToSD(this, goodsShareIcon, "goods_" + goodsID);
 		CommonUtils.showShare(this, title, text, shareUrl, imgPath);
+	}
+
+	@Override
+	public void onReturnSceneData(Scene scene) {
+		if (scene != null) {
+			path = scene.path;
+			source = scene.source;
+			paramStr = "";
+			if (scene.params != null) {
+				for (Map.Entry<String, Object> entry : scene.params.entrySet()) {
+					paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
+				}
+			}
+
+			// dialog不能复用, 防止参数更换, 不能及时更新
+			if (null != dialog && dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			dialog = CommonUtils.getDialog(this, scene.path, scene.source, paramStr);
+			if (!dialog.isShowing()) {
+				dialog.show();
+			}
+
+			if (null != scene.params) {
+				String value = null;
+				if (scene.params.containsKey("goodsID")) {
+					value = String.valueOf(scene.params.get("goodsID"));
+
+				} else if (scene.params.containsKey("id")) {
+					value = String.valueOf(scene.params.get("id"));
+				}
+				if (!TextUtils.isEmpty(value)) {
+					goodsID = Integer.parseInt(String.valueOf(value));
+					setGoodsDetail();
+				}
+			}
+		}
 	}
 }

@@ -1,0 +1,121 @@
+// define the common method for android configuration
+//
+ext.findBuildTools = {
+    def localProperties = new File(projectDir, "local.properties")
+    String buildTools = "25.0.2";
+    if (localProperties.exists()) {
+        def properties = new Properties()
+        localProperties.withInputStream {
+            instr->properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        def buildToolsDir = new File(sdkDir, "build-tools")
+        if (buildToolsDir.exists()) {
+            def tools = buildToolsDir.list()
+            if (tools != null) {
+                Arrays.sort(tools)
+                buildTools = tools[tools.length - 1]
+            }
+        }
+    }
+    logForfind("findBuildTools:" + buildTools)
+    return buildTools
+}
+
+ext.findCompileSdkVersion = {
+    int cimpileSdkVersion = 19
+    def projProp = new File(projectDir, "project.properties")
+    if (projProp.exists()) {
+        def properties = new Properties()
+        projProp.withInputStream {
+            instr->properties.load(instr)
+        }
+        def target = properties.getProperty('target').trim()
+        def pref = "android-"
+        if (target != null && target.startsWith(pref)) {
+            cimpileSdkVersion = Integer.parseInt(target.substring(pref.length()))
+        }
+    }
+    logForfind("findCompileSdkVersion:" + cimpileSdkVersion);
+    return cimpileSdkVersion;
+}
+
+ext.findProguardFile = {
+    String proguardFile = null;
+    def srcDir = new File(projectDir, "src")
+    srcDir = srcDir.listFiles();
+    if (null != srcDir && srcDir.length > 0) {
+        def file = new File(projectDir, "proguard-project.txt")
+        proguardFile = file.getAbsolutePath()
+    }
+    logForfind("findProguardFile:" + proguardFile);
+    return proguardFile;
+}
+
+ext.findTargetSdk = {
+    int targetSdk = 8;
+    def manifest = findManifest()
+    String temp = manifest.getAt("uses-sdk").getProperty('@android:targetSdkVersion').toString();
+    if (null != temp && temp.length() > 0) {
+        targetSdk = Integer.parseInt(temp);
+    }
+    logForfind("findTargetSdk:" + targetSdk)
+    return targetSdk;
+}
+
+ext.findMinSdk = {
+    int minSdk = 8;
+    def manifest = findManifest()
+    String temp = manifest.getAt("uses-sdk").getProperty('@android:minSdkVersion').toString();
+    if (null != temp && temp.length() > 0) {
+        minSdk = Integer.parseInt(temp);
+    }
+    logForfind("findMinSdk:" + minSdk)
+    return minSdk
+}
+
+ext.findVersionName = {
+    def manifest = findManifest();
+    String versionName = manifest.getProperty('@android:versionName')
+    logForfind("findVersionName:" + versionName)
+    return versionName
+}
+
+ext.findVersionCode = {
+    def manifest = findManifest();
+    String temp = manifest.getProperty('@android:versionCode');
+    def versionCode = Integer.parseInt(temp)
+    logForfind("findVersionCode:" + versionCode)
+    return versionCode
+}
+
+ext.findApplicationId = {
+    def manifest = findManifest();
+    String pkg = manifest.getProperty('@package');
+    logForfind("findApplicationId:" + pkg)
+    return pkg;
+}
+
+ext.findManifest = {
+    def file = new File(projectDir, "AndroidManifest.xml")
+    def xml = new XmlSlurper()
+    def manifest = xml.parse(file)
+    return manifest;
+}
+
+ext.findJarByPrefix = { prefix ->
+    def libs = new File(projectDir, "libs")
+    String ret = null
+    for (String file : libs.list()) {
+        if (file.startsWith(prefix)) {
+            ret = file;
+            break
+        }
+    }
+    logForfind("findJarByPrefix: "  + ret + ", prefix: " + prefix)
+    return ret;
+}
+
+ext.logForfind = { msg ->
+    println("ext.find:" + msg)
+}

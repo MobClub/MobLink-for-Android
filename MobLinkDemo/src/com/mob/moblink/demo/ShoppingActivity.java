@@ -1,6 +1,5 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,25 +11,20 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mob.moblink.ActionListener;
-import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
+import com.mob.moblink.SceneRestorable;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class ShoppingActivity extends Activity implements View.OnClickListener{
+public class ShoppingActivity extends BaseActivity implements SceneRestorable {
 	private Uri data;
 	private Dialog dialog;
-	private ImageView ivBack;
 	private GridView gvGoodsList;
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +32,8 @@ public class ShoppingActivity extends Activity implements View.OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_shopping);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		gvGoodsList = (GridView) findViewById(R.id.gv_shopping_list);
 
-		ivBack.setOnClickListener(this);
 		MyAdapter adapter = new MyAdapter(this);
 		adapter.setGoodsData(CommonUtils.getGoodsData(this));
 		gvGoodsList.setAdapter(adapter);
@@ -54,55 +46,28 @@ public class ShoppingActivity extends Activity implements View.OnClickListener{
 		});
 
 	}
+
+	@Override
+	public void onReturnSceneData(Scene scene) {
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		dialog = CommonUtils.getRestoreSceneDialog(ShoppingActivity.this, new Runnable() {
+			public void run() {
+				Intent intent = new Intent(ShoppingActivity.this, ShoppingDetailActivity.class);
+				intent.setData(data);
+				startActivity(intent);
+			}
+		});
+		dialog.show();
+	}
+
+	@Override
 	protected void onResume() {
-		super.onResume();
 		if (getIntent() != null) {
 			data = getIntent().getData();
 		}
-		MobLink.initSDK(this, CommonUtils.APPKEY);
-		MobLink.setIntentHandler(getIntent(), new ActionListener() {
-			public void onResult(final HashMap<String, Object> res) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						if (dialog != null && dialog.isShowing()) {
-							dialog.dismiss();
-						}
-						dialog = CommonUtils.getRestoreSceneDialog(ShoppingActivity.this, new Runnable() {
-							public void run() {
-								Intent intent = new Intent(ShoppingActivity.this, ShoppingDetailActivity.class);
-								intent.setData(data);
-								startActivity(intent);
-							}
-						});
-						dialog.show();
-					}
-				});
-			}
-			public void onError(Throwable t) {
-				if (t != null) {
-					Toast.makeText(ShoppingActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-
-		setIntent(null);
-	}
-
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-	}
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, MainActivity.class);
-				i.putExtra("tag", 2);
-				startActivity(i);
-			} break;
-			default:
-			break;
-		}
+		super.onResume();
 	}
 
 	private class MyAdapter extends BaseAdapter {

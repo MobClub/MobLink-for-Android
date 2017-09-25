@@ -1,7 +1,5 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,24 +9,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mob.moblink.ActionListener;
-import com.mob.moblink.MobLink;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class VideosActivity extends Activity implements View.OnClickListener{
+public class VideosActivity extends BaseActivity {
 
-	private ImageView ivBack;
 	private GridView gvVideosList;
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +27,8 @@ public class VideosActivity extends Activity implements View.OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_videos);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		gvVideosList = (GridView) findViewById(R.id.gv_video_list);
 
-		ivBack.setOnClickListener(this);
 
 		MyAdapter adapter = new MyAdapter(this);
 		adapter.setVideoData(CommonUtils.getVideosData(this));
@@ -51,18 +40,6 @@ public class VideosActivity extends Activity implements View.OnClickListener{
 				startActivity(i);
 			}
 		});
-	}
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, MainActivity.class);
-				i.putExtra("tag", 2);
-				startActivity(i);
-			} break;
-			default:
-			break;
-		}
 	}
 
 	private class MyAdapter extends BaseAdapter {

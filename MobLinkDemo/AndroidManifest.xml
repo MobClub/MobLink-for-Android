@@ -1,215 +1,214 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.mob.moblink.demo"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="201" android:versionName="2.0.1" package="com.mob.moblink.demo">
 
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="16" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16"/>
 
-	<uses-permission android:name="android.permission.GET_TASKS" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	
-	<supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
-	
-    <application
-        android:debuggable="true"
-        android:icon="@drawable/moblink_icon"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        tools:ignore="HardcodedDebugMode">
-        
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true"/>
+
+	<uses-permission android:name="android.permission.GET_TASKS"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <application android:debuggable="true" android:icon="@drawable/moblink_icon" android:label="@string/app_name" android:name=".app.DemoApplication" android:theme="@style/AppTheme" tools:ignore="HardcodedDebugMode">
+
+        <meta-data android:name="Mob-AppKey" android:value="moba6b6c6d6"/>
+        <meta-data android:name="Mob-AppSecret" android:value="b89d2427a3bc7ad1aea1e1e8c1d36bf3"/>
+        <!--  <meta-data android:name="Mob-AppKey" android:value="1cc67a00af338"/>
+        <meta-data android:name="Mob-AppSecret" android:value="ae8865916772cb1069c37518d81135d8"/>  -->
+
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:launchMode="singleTop" android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity 
-            android:name=".ActivityA"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-            <intent-filter>
-               <action android:name="android.intent.action.VIEW" />
-               <category android:name="android.intent.category.DEFAULT"/>
-               <category android:name="android.intent.category.BROWSABLE"/>
-               <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/demo/a"/>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ActivityB"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ActivityA" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/demo/b"/>
+                <data android:host="com.mob.moblink.demo" android:path="/demo/a" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/a" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/a" android:scheme="https"/>
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ActivityC"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ActivityB" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/demo/c"/>
+                <data android:host="com.mob.moblink.demo" android:path="/demo/b" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/b" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/b" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/demo/b" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/demo/b" /> -->
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ActivityD"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ActivityC" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/demo/d"/>
+                <data android:host="com.mob.moblink.demo" android:path="/demo/c" android:scheme="mlink"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ShoppingActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/scene/shopping"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/c" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/c" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/demo/c" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/demo/c" /> -->
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ShoppingDetailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name=".NewsActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name=".NewsDetailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ActivityD" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/scene/news"/>
+                <data android:host="com.mob.moblink.demo" android:path="/demo/d" android:scheme="mlink"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".VideosActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name=".VideosDetailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/scene/video"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/d" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/d" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/demo/d" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/demo/d" /> -->
             </intent-filter>
         </activity>
-        <activity 
-            android:name=".InviteActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name=".InviteDetailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ShoppingActivity" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/params/invite"/>
+                <data android:host="com.mob.moblink.demo" android:path="/scene/shopping" android:scheme="mlink"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".TicketActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name=".TicketDetailActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="mlink" android:host="com.mob.moblink.demo" android:path="/params/ticket"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/shopping" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/shopping" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/scene/shopping" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/scene/shopping" /> -->
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:multiprocess="true">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ShoppingDetailActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:launchMode="standard" android:name=".NewsActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".NewsDetailActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="com.mob.moblink.demo" android:path="/scene/news" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/news" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/news" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/scene/news" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/scene/news" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:launchMode="standard" android:name=".VideosActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".VideosDetailActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="com.mob.moblink.demo" android:path="/scene/video" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/video" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/scene/video" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/scene/video" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/scene/video" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:launchMode="standard" android:name=".InviteActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:name=".InviteDetailActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="com.mob.moblink.demo" android:path="/params/invite" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/params/invite" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/params/invite" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/params/invite" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/params/invite" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:launchMode="standard" android:name=".TicketActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTask" android:name=".TicketDetailActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="com.mob.moblink.demo" android:path="/params/ticket" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/params/ticket" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/params/ticket" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/params/ticket" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/params/ticket" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:multiprocess="true" android:name="com.mob.tools.MobUIShell" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:windowSoftInputMode="stateHidden|adjustResize">
        
             <intent-filter android:priority="1000">
-                <data android:scheme="tencent100371282" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105914667"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
             
             <intent-filter>
-				<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-				<category android:name="android.intent.category.DEFAULT" />
+				<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+				<category android:name="android.intent.category.DEFAULT"/>
 			</intent-filter>
         </activity>
         
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true" />
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name=".wxapi.WXEntryActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <service android:name=".service.MobLinkService"/>
+
     </application>
 
 </manifest>

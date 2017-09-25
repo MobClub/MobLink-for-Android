@@ -13,16 +13,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NewsActivity extends Activity implements View.OnClickListener{
+public class NewsActivity extends BaseActivity {
 
-	private ImageView ivBack;
 	private ListView lvNewsList;
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +28,7 @@ public class NewsActivity extends Activity implements View.OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_news);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		lvNewsList = (ListView) findViewById(R.id.lv_news);
-		ivBack.setOnClickListener(this);
 
 		MyAdapter adapter = new MyAdapter(this);
 		adapter.setData(CommonUtils.getNewsData(this));
@@ -47,18 +43,6 @@ public class NewsActivity extends Activity implements View.OnClickListener{
 		});
 
 
-	}
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, MainActivity.class);
-				i.putExtra("tag", 2);
-				startActivity(i);
-			} break;
-			default:
-			break;
-		}
 	}
 
 	private class MyAdapter extends BaseAdapter {

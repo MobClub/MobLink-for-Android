@@ -1,0 +1,4 @@
+﻿版本：V2.0.1 
+1、与SDK交互使用Scene实体, 更方便;
+2、无需注册监听器, Activity实现SceneRestorable即可;
+3、优化实现, 不再需要重写onNewIntent做额外处理;

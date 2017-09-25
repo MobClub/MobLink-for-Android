@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,17 +15,14 @@ import android.widget.Toast;
 
 import com.mob.moblink.ActionListener;
 import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.HashMap;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends Activity implements OnClickListener{
-
+	private static Activity sFirstInstance;
 	private Context context;
 	private Spinner spPath;
 	private EditText etSource;
@@ -56,10 +52,17 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_main);
-
-		initView();
-		initData(getIntent());
+		if (null == sFirstInstance) {
+			sFirstInstance = this;
+			setContentView(R.layout.activity_main);
+			initView();
+		} else if (this != sFirstInstance) {
+			// 防止微信跳转过来，多个MainActivity界面(是singletop)
+			finish();
+		} else {
+			setContentView(R.layout.activity_main);
+			initView();
+		}
 	}
 
 	private void initView() {
@@ -123,11 +126,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 
-	private void initData(Intent intent) {
-		ShareSDK.initSDK(this);
-		MobLink.initSDK(this, CommonUtils.APPKEY);
-	}
-
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.ll_tag1:{
@@ -172,11 +170,16 @@ public class MainActivity extends Activity implements OnClickListener{
 				params.put(key2, value2);
 				params.put(key3, value3);
 
-				MobLink.getMobID(params, CommonUtils.MAIN_PATH_ARR[selectedID], source, new ActionListener() {
-					public void onResult(HashMap<String, Object> params) {
-						if (params != null && params.containsKey("mobID")) {
+				Scene s = new Scene();
+				s.path = CommonUtils.MAIN_PATH_ARR[selectedID];
+				s.source = source;
+				s.params = params;
+				MobLink.getMobID(s, new ActionListener<String>() {
+					public void onResult(String mobID) {
+						if (mobID != null) {
 							btnShare.setSelected(true);
-							mobID = String.valueOf(params.get("mobID"));
+							MainActivity.this.mobID = mobID;
+							Toast.makeText(context, "Get MobID Successfully!", Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(context, "Get MobID Failed!", Toast.LENGTH_SHORT).show();
 						}
@@ -199,7 +202,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				int selectedID = spPath.getSelectedItemPosition();
 				String shareUrl = CommonUtils.SHARE_URL + CommonUtils.MAIN_PATH_ARR[selectedID];
 				if (!TextUtils.isEmpty(mobID)) {
-					shareUrl += "/?mobid=" + mobID;
+					shareUrl += "?mobid=" + mobID;
 				}
 				String title = getString(R.string.show_share_titel);
 				String text = getString(R.string.share_text);
@@ -241,9 +244,28 @@ public class MainActivity extends Activity implements OnClickListener{
 				Intent intent = new Intent(MainActivity.this, InviteActivity.class);
 				startActivity(intent);
 			} break;
-			default:
-			break;
+			default: {
+				super.onClick(v);
+			} break;
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (sFirstInstance == this) {
+			sFirstInstance = null;
+		}
+	}
+
+	/**
+	 * 回退时, 必须时拉起launcher.
+	 */
+	protected static void launcherMainIfNecessary(Activity current) {
+		if (null == sFirstInstance) {
+			Intent intent = new Intent(current, MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+			current.startActivity(intent);
+		}
+	}
 }

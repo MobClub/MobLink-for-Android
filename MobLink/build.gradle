@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+apply from: 'build-mix.gradle'
+
+
+android {
+
+    compileSdkVersion findCompileSdkVersion()
+    buildToolsVersion findBuildTools()
+
+    defaultConfig {
+        minSdkVersion findMinSdk()
+        targetSdkVersion findTargetSdk()
+        versionCode findVersionCode()
+        versionName findVersionName()
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            assets.srcDirs = ['assets']
+            java.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            res.srcDirs = ['res']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            def proguard = findProguardFile()
+            if (null != proguard) {
+                proguardFiles proguard
+            }
+        }
+
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+}
+
+dependencies {
+    Project mobTools = findProject(':MobTools')
+    String file
+    if (null != mobTools) {
+        compile mobTools
+    } else if (null != (file = findJarByPrefix('MobTools'))){
+        compile files('libs/' + file)
+    }
+    mobTools = findProject(":MobCommons")
+    if (null != mobTools) {
+        compile mobTools
+    } else if (null != (file = findJarByPrefix('MobCommons'))){
+        compile files('libs/' + file)
+    }
+
+    File srcDir = new File(projectDir, "src")
+    if (!srcDir.isDirectory()) {
+        file = findJarByPrefix('MobLink')
+        if (null != file) {
+            compile files('libs/' + file)
+        }
+    }
+}

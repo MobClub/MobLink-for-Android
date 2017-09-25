@@ -1,12 +1,10 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,9 +12,8 @@ import android.widget.Toast;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.demo.util.CommonUtils;
 
-public class TicketActivity extends Activity implements View.OnClickListener{
+public class TicketActivity extends BaseActivity {
 
-	private ImageView ivBack;
 	private TextView tvShare;
 	private Spinner spFlyFrom;
 	private Spinner spFlyTo;
@@ -33,7 +30,6 @@ public class TicketActivity extends Activity implements View.OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_ticket);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		tvShare = (TextView) findViewById(R.id.tv_share);
 		spFlyFrom = (Spinner) findViewById(R.id.sp_fly_from);
 		spFlyTo = (Spinner) findViewById(R.id.sp_fly_to);
@@ -42,7 +38,6 @@ public class TicketActivity extends Activity implements View.OnClickListener{
 		btnDate5 = (Button) findViewById(R.id.btn_date5);
 		btnSearch = (Button) findViewById(R.id.btn_search);
 
-		ivBack.setOnClickListener(this);
 		tvShare.setOnClickListener(this);
 		btnDate3.setOnClickListener(this);
 		btnDate4.setOnClickListener(this);
@@ -52,17 +47,10 @@ public class TicketActivity extends Activity implements View.OnClickListener{
 		btnDate3.setSelected(true);
 		flyDate = btnDate3.getText().toString();
 		spFlyTo.setSelection(1);
-
-		MobLink.initSDK(this, CommonUtils.APPKEY);
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, MainActivity.class);
-				i.putExtra("tag", 3);
-				startActivity(i);
-			} break;
 			case R.id.tv_share: {
 				//获取mobid后再分享
 				flyFrom = spFlyFrom.getSelectedItem().toString();
@@ -104,8 +92,9 @@ public class TicketActivity extends Activity implements View.OnClickListener{
 				i.putExtra("flyDate", flyDate);
 				startActivity(i);
 			} break;
-			default:
-			break;
+			default: {
+				super.onClick(v);
+			} break;
 		}
 	}
 

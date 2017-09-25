@@ -1,17 +1,72 @@
 apply plugin: 'com.android.application'
-apply from: '../AS-Proj-MobLink/EclipseModule.gradle'
+apply from: '../MobLink/build-mix.gradle'
 
 android {
+    compileSdkVersion findCompileSdkVersion()
+    buildToolsVersion findBuildTools()
+
+    defaultConfig {
+        applicationId findApplicationId()
+        minSdkVersion findMinSdk()
+        targetSdkVersion findTargetSdk()
+        versionCode findVersionCode()
+        versionName findVersionName()
+    }
+
+
     signingConfigs {
-        release {
-            storeFile file("../demokey.keystore")
+        config {
+            storeFile file("demokey.keystore")
             storePassword "123456"
             keyAlias "demokey.keystore"
             keyPassword "123456"
         }
     }
+
+    buildTypes {
+        // 注意: 我们的demo代码并在不做代码混淆，特别是MobLink SDK 的代码
+        // 所以, 一定用ant处理代码, 使用处理后的代码编译出最终的apk.
+        release {
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
+            minifyEnabled false
+        }
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            assets.srcDirs = ['assets']
+            java.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            res.srcDirs = ['res']
+            jniLibs.srcDirs = ['libs']
+        }
+
+        test {
+            root = ['test']
+            java.srcDirs = ['test']
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
 }
 
 dependencies {
     compile project(':MobLink')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.3.2"
 }

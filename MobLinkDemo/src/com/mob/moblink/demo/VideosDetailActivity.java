@@ -1,35 +1,26 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mob.moblink.ActionListener;
 import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
+import com.mob.moblink.SceneRestorable;
 import com.mob.moblink.demo.util.CommonUtils;
-import com.mob.tools.utils.BitmapHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
-
-public class VideosDetailActivity extends Activity implements View.OnClickListener {
-
-	private ImageView ivBack;
+public class VideosDetailActivity extends BaseActivity implements SceneRestorable {
+	private static final String TAG = "VideosDetailActivity";
 	private TextView tvShare;
 	private TextView tvTitle;
 	private WebView wvPlayVideo;
@@ -37,8 +28,6 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 	private View videoSug02;
 	private View videoSug03;
 	private View videoSug04;
-
-	private Dialog dialog;
 
 	private int videoIcon;//用于视频分享时的图片
 	private int videoID;
@@ -49,7 +38,6 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_videos_detail);
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		tvShare = (TextView) findViewById(R.id.tv_share);
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		wvPlayVideo = (WebView) findViewById(R.id.videoView);
@@ -58,7 +46,6 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 		videoSug03 = findViewById(R.id.rl_video_sug03);
 		videoSug04 = findViewById(R.id.rl_video_sug04);
 
-		ivBack.setOnClickListener(this);
 		tvShare.setOnClickListener(this);
 		videoSug01.setOnClickListener(this);
 		videoSug02.setOnClickListener(this);
@@ -81,58 +68,11 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 		wvPlayVideo.setBackgroundColor(0x000000);
 
 		mobIdCache = new HashMap<Integer, String>();
-	}
 
-	protected void onResume() {
-		super.onResume();
 		if (getIntent() != null) {
 			videoID = getIntent().getIntExtra("position", 0);
 			setVideoDetail();
 		}
-		MobLink.initSDK(this, CommonUtils.APPKEY);
-		MobLink.setIntentHandler(getIntent(), new ActionListener() {
-			public void onResult(final HashMap<String, Object> res) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						String sourceStr = "";
-						String paramStr = "";
-						if (res != null) {
-							if (res.get("source") != null) {
-								sourceStr = String.valueOf(res.get("source"));
-							}
-							if (res.get("params") != null) {
-								HashMap<String, Object> params = (HashMap<String, Object>) res.get("params");
-								for (Map.Entry<String, Object> entry : params.entrySet()) {
-									if ("videoID".equals(entry.getKey()) || "id".equals(entry.getKey())) {
-										videoID = Integer.parseInt(String.valueOf(entry.getValue()));
-										setVideoDetail();
-									}
-									paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
-								}
-							}
-						}
-
-						if (dialog != null && dialog.isShowing()) {
-							dialog.dismiss();
-						}
-						dialog = CommonUtils.getDialog(VideosDetailActivity.this, CommonUtils.VIDEO_PATH, sourceStr, paramStr);
-						dialog.show();
-					}
-				});
-			}
-
-			public void onError(Throwable t) {
-				if (t != null) {
-					Toast.makeText(VideosDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-		setIntent(null);
-	}
-
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
 	}
 
 	protected void onPause() {
@@ -145,10 +85,6 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, VideosActivity.class);
-				startActivity(i);
-			} break;
 			case R.id.tv_share: {
 				//分享
 				getMobIDToShare();
@@ -169,8 +105,9 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 				videoID = 103;
 				setVideoDetail();
 			} break;
-			default:
-			break;
+			default: {
+				super.onClick(v);
+			} break;
 		}
 	}
 
@@ -227,12 +164,15 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 		}
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("videoID", videoID);
-		MobLink.getMobID(params, CommonUtils.VIDEO_PATH, CommonUtils.VIDEO_SOURCE, new ActionListener() {
-			public void onResult(HashMap<String, Object> params) {
-				if (params != null && params.containsKey("mobID")) {
-					mobID = String.valueOf(params.get("mobID"));
+		Scene s = new Scene();
+		s.path = CommonUtils.VIDEO_PATH;
+		s.source = CommonUtils.VIDEO_SOURCE;
+		s.params = params;
+		MobLink.getMobID(s, new ActionListener<String>() {
+			public void onResult(String mobID) {
+				if (mobID != null) {
+					VideosDetailActivity.this.mobID = mobID;
 					mobIdCache.put(videoID, mobID);
-					Log.i("Get mobID success ==>> ", mobID);
 				} else {
 					Toast.makeText(VideosDetailActivity.this, "Get MobID Failed!", Toast.LENGTH_SHORT).show();
 				}
@@ -251,7 +191,7 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 	private void share() {
 		String shareUrl = CommonUtils.SHARE_URL + CommonUtils.VIDEO_PATH + "/" + videoID;
 		if (!TextUtils.isEmpty(mobID)) {
-			shareUrl += "/?mobid=" + mobID;
+			shareUrl += "?mobid=" + mobID;
 		}
 		String title = tvTitle.getText().toString();
 		String text = tvTitle.getText().toString();
@@ -259,4 +199,38 @@ public class VideosDetailActivity extends Activity implements View.OnClickListen
 		CommonUtils.showShare(this, title, text, shareUrl, imgPath);
 	}
 
+	@Override
+	public void onReturnSceneData(Scene scene) {
+		if (scene != null) {
+			path = scene.path;
+			source = scene.source;
+			paramStr = "";
+			if (scene.params != null) {
+				for (Map.Entry<String, Object> entry : scene.params.entrySet()) {
+					paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
+				}
+			}
+
+			// dialog不能复用, 防止参数更换, 不能及时更新
+			if (null != dialog && dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			dialog = CommonUtils.getDialog(this, scene.path, scene.source, paramStr);
+			if (!dialog.isShowing()) {
+				dialog.show();
+			}
+			if (null != scene.params) {
+				String value = null;
+				if (scene.params.containsKey("videoID")) {
+					value = String.valueOf(scene.params.get("videoID"));
+				} else if (scene.params.containsKey("id")) {
+					value = String.valueOf(scene.params.get("id"));
+				}
+				if (!TextUtils.isEmpty(value)) {
+					videoID = Integer.parseInt(String.valueOf(value));
+					setVideoDetail();
+				}
+			}
+		}
+	}
 }

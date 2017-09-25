@@ -6,9 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.mob.moblink.MobLink;
 import com.mob.moblink.demo.R;
 import com.mob.tools.utils.ResHelper;
 
@@ -22,8 +22,21 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 public class CommonUtils {
-	public static final String SHARE_URL = "http://f.moblink.mob.com/test";
-	public static final String APPKEY = "1bf42e96da8f0";
+
+	/**
+	 * 标识, 连接是不是测试服
+	 */
+	public static final boolean DEBUGGABLE = MobLink.DEBUGGABLE;
+
+	public static final String SHARE_URL;
+	static {
+		if (DEBUGGABLE) {
+			SHARE_URL = "http://10.18.97.58:2121";
+		} else {
+			SHARE_URL = "http://f.moblink.mob.com/test";
+		}
+	}
+
 	public static final String[] MAIN_PATH_ARR = {"/demo/a", "/demo/b", "/demo/c", "/demo/d"};
 
 	public static final String NEWS_PATH = "/scene/news";
@@ -275,6 +288,14 @@ public class CommonUtils {
 				if ("SinaWeibo".endsWith(platform.getName())) {
 					String text = paramsToShare.getText() + paramsToShare.getUrl();
 					paramsToShare.setText(text);
+				} else if ("ShortMessage".endsWith(platform.getName())) {
+					paramsToShare.setImagePath(null);
+					String value = paramsToShare.getText();
+					value += "\n";
+					String url = paramsToShare.getUrl();
+					value += url;
+					paramsToShare.setText(value);
+
 				}
 			}
 		});

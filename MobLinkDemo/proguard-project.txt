@@ -48,23 +48,15 @@
   public static final android.os.Parcelable$Creator *;
 }
 
--keepclasseswithmembers class * {
-    *** getHTML(java.lang.String);
+-keep class **.R$* {
+      *;
 }
 
--keep class com.mob.commons.MOBLINK{
+# 原生的Demo项目并在不使用混淆文件, 我们是开源的没有必要这么做.
+# 下面的这句话是给集成MobLink的开发者使用的.
+# 集成MobLink的开发者, 增加这些keep, 防止混淆引起无法使用.
+-keep class com.mob.** {
 	*;
 }
 
--keep class com.mob.moblink.MobLink {
-	*;
-}
-
--keep class com.mob.moblink.ActionListener {
-	*;
-}
-
--keep class **.R$* {   
-    *;   
-}
 

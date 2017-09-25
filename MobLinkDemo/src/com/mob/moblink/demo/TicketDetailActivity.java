@@ -1,41 +1,32 @@
 package com.mob.moblink.demo;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mob.moblink.ActionListener;
-import com.mob.moblink.MobLink;
+import com.mob.moblink.Scene;
+import com.mob.moblink.SceneRestorable;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TicketDetailActivity extends Activity implements View.OnClickListener{
+public class TicketDetailActivity extends BaseActivity implements SceneRestorable {
 
-	private ImageView ivBack;
 	private TextView tvTitle;
 	private ListView lvTicketList;
 	private String flyFrom;
 	private String flyTo;
 	private String flyDate;
 
-	private Dialog dialog;
 	private String source;
 	private MyAdapter adapter;
 
@@ -44,7 +35,6 @@ public class TicketDetailActivity extends Activity implements View.OnClickListen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_ticket_detail);
 
-		ivBack = (ImageView) findViewById(R.id.iv_back);
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		lvTicketList = (ListView) findViewById(R.id.lv_ticket);
 
@@ -52,79 +42,17 @@ public class TicketDetailActivity extends Activity implements View.OnClickListen
 		flyTo = getIntent().getStringExtra("flyTo");
 		flyDate = getIntent().getStringExtra("flyDate");
 
+		if (!TextUtils.isEmpty(flyFrom) && !TextUtils.isEmpty(flyTo) && !TextUtils.isEmpty(flyDate)) {
+			if (adapter == null) {
+				adapter = new MyAdapter(this);
+				adapter.setTicketsData(CommonUtils.getTicketsDate(this));
+				lvTicketList.setAdapter(adapter);
+			} else {
+				adapter.notifyDataSetChanged();
+			}
+		}
+
 		tvTitle.setText(flyDate);
-		ivBack.setOnClickListener(this);
-	}
-
-	protected void onResume() {
-		super.onResume();
-		MobLink.initSDK(this, CommonUtils.APPKEY);
-		MobLink.setIntentHandler(getIntent(), new ActionListener() {
-			public void onResult(final HashMap<String, Object> res) {
-				runOnUiThread(new Runnable() {
-					public void run() {
-						String paramStr = "";
-						if (res != null) {
-							if (res.get("source") != null) {
-								source = String.valueOf(res.get("source"));
-							}
-							if (res.get("params") != null) {
-								HashMap<String, Object> params = (HashMap<String, Object>) res.get("params");
-								for (Map.Entry<String, Object> entry : params.entrySet()) {
-									if ("from".equals(entry.getKey())) {
-										flyFrom = (String) entry.getValue();
-									} else if ("to".equals(entry.getKey())) {
-										flyTo = (String) entry.getValue();
-									} else if ("date".equals(entry.getKey())) {
-										flyDate = (String) entry.getValue();
-										tvTitle.setText(flyDate);
-									}
-									paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
-								}
-							}
-						}
-
-						adapter.notifyDataSetChanged();
-
-						if (dialog != null && dialog.isShowing()) {
-							dialog.dismiss();
-						}
-						dialog = CommonUtils.getDialog(TicketDetailActivity.this, CommonUtils.TICKET_PATH, source, paramStr);
-						dialog.show();
-					}
-				});
-			}
-			public void onError(Throwable t) {
-				if (t != null) {
-					Toast.makeText(TicketDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-
-		if (adapter == null) {
-			adapter = new MyAdapter(this);
-			adapter.setTicketsData(CommonUtils.getTicketsDate(this));
-			lvTicketList.setAdapter(adapter);
-		}
-
-		setIntent(null);
-	}
-
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-	}
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.iv_back: {
-				Intent i = new Intent(this, TicketActivity.class);
-				i.putExtra("tag", 3);
-				startActivity(i);
-			} break;
-			default:
-			break;
-		}
 	}
 
 	private class MyAdapter extends BaseAdapter {
@@ -196,4 +124,47 @@ public class TicketDetailActivity extends Activity implements View.OnClickListen
 		}
 	}
 
+	@Override
+	public void onReturnSceneData(Scene scene) {
+		if (scene != null) {
+			path = scene.path;
+			source = scene.source;
+			paramStr = "";
+			if (scene.params != null) {
+				for (Map.Entry<String, Object> entry : scene.params.entrySet()) {
+					paramStr += (entry.getKey() + " : " + entry.getValue() + "\r\n");
+				}
+			}
+
+			// dialog不能复用, 防止参数更换, 不能及时更新
+			if (null != dialog && dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			dialog = CommonUtils.getDialog(this, scene.path, scene.source, paramStr);
+			if (!dialog.isShowing()) {
+				dialog.show();
+			}
+			if (null != scene.params) {
+				if (scene.params.containsKey("from")) {
+					flyFrom = String.valueOf(scene.params.get("from"));
+				}
+				if (scene.params.containsKey("to")) {
+					flyTo = String.valueOf(scene.params.get("to"));
+				}
+
+				if (scene.params.containsKey("date")) {
+					flyDate = String.valueOf(scene.params.get("date"));
+					tvTitle.setText(flyDate);
+				}
+			}
+
+			if (adapter == null) {
+				adapter = new MyAdapter(this);
+				adapter.setTicketsData(CommonUtils.getTicketsDate(this));
+				lvTicketList.setAdapter(adapter);
+			} else {
+				adapter.notifyDataSetChanged();
+			}
+		}
+	}
 }

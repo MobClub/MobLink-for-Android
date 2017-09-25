@@ -2,13 +2,8 @@
 <DevInfor>
     <!--
     	说明：
-    	
-    	1、表格中的第一项
-    		<ShareSDK 
-        		AppKey="api20" />
-    	是必须的，其中的AppKey是您在ShareSDK上注册的开发者帐号的AppKey
-    	
-    	2、所有集成到您项目的平台都应该为其在表格中填写相对应的开发者信息，以新浪微博为例：
+		
+		所有集成到您项目的平台都应该为其在表格中填写相对应的开发者信息，以新浪微博为例：
     	    <SinaWeibo
                 Id="1"
                 SortId="1"
@@ -53,9 +48,6 @@
 			Plurk          http://www.plurk.com/API
     -->
     
-    <ShareSDK 
-        AppKey = "1b8f0daaeef0e"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
-    
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <SinaWeibo
         Id="1"
@@ -63,6 +55,7 @@
         AppKey="474962333"
         AppSecret="26522c6ed236057fd4ff5005449f98e9"
         RedirectUrl="http://www.sharesdk.cn"
+        IsNewApi="true"
         ShareByAppClient="true"
         Enable="true" />
 
@@ -131,6 +124,7 @@
         ConsumerKey="107704292745179"
         ConsumerSecret="38053202e1a5fe26c80c753071f0b573"
         RedirectUrl="http://mob.com"
+        ShareByAppClient="true"
         Enable="true" />
 
     <Twitter
