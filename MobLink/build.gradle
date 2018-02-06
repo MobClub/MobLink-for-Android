@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 apply from: 'build-mix.gradle'
-
+apply plugin: 'com.mob.sdk'
 
 android {
-
+    publishNonDefault true
     compileSdkVersion findCompileSdkVersion()
     buildToolsVersion findBuildTools()
 
@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             def proguard = findProguardFile()
             if (null != proguard) {
                 proguardFiles proguard
@@ -48,6 +48,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
+
+    libraryVariants.all { var ->
+        if ("release".equals(var.buildType.name)) {
+            var.assemble.doLast {
+                var.outputs.each { out ->
+                    def arrName = "${project.name}-" + findVersionName() + ".aar"
+                    File newName = new File(out.outputFile.getParentFile(), arrName)
+                    out.outputFile.renameTo(newName)
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -55,16 +67,19 @@ dependencies {
     String file
     if (null != mobTools) {
         compile mobTools
-    } else if (null != (file = findJarByPrefix('MobTools'))){
-        compile files('libs/' + file)
+    } else {
+        MobSDK {
+            MobTools{}
+        }
     }
     mobTools = findProject(":MobCommons")
     if (null != mobTools) {
         compile mobTools
-    } else if (null != (file = findJarByPrefix('MobCommons'))){
-        compile files('libs/' + file)
+    } else {
+        MobSDK {
+            MobCommons{}
+        }
     }
-
     File srcDir = new File(projectDir, "src")
     if (!srcDir.isDirectory()) {
         file = findJarByPrefix('MobLink')
@@ -73,3 +88,4 @@ dependencies {
         }
     }
 }
+

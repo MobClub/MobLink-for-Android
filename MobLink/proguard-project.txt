@@ -65,3 +65,11 @@
 -keep class * extends com.mob.tools.proguard.ProtectedMemberKeeper {
 	protected *;
 }
+
+-keepclassmembers class * extends com.mob.tools.proguard.PrivateMemberKeeper {
+	private *;
+}
+
+-keep class * extends com.mob.tools.proguard.EverythingKeeper {
+	*;
+}

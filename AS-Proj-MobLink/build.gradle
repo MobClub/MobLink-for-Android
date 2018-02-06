@@ -1,24 +1,29 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        mavenMobUrl = "http://mvn.mob.com/android"
+        mavenMobUrl = "http://10.18.97.47:8080/jenkins/job/iMaven/ws/android"
+        buildDepFromMaven = true
+    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.mob.sdk:MobSDK:+'
     }
 
     repositories {
         jcenter()
+        maven {
+            url mavenMobUrl
+        }
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url mavenMobUrl
+        }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
