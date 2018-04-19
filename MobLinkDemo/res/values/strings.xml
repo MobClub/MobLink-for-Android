@@ -10,6 +10,7 @@
 	<string name="params_value_hint">值value</string>
 	<string name="get_mobid">获取MobID</string>
 	<string name="share">分享</string>
+	<string name="share_to_wxmini">分享到小程序</string>
 	<string name="set_default_value">填充默认值</string>
 	<string name="path">路径path</string>
 	<string-array name="path_arr">
@@ -18,17 +19,21 @@
 		<item>选择C页面路径</item>
 		<item>选择D页面路径</item>
 	</string-array>
+	<string name="path_wx_mini">/demo/mini</string>
 	<string name="activity_a">A页面</string>
 	<string name="activity_b">B页面</string>
 	<string name="activity_c">C页面</string>
 	<string name="activity_d">D页面</string>
+	<string name="activity_mini">小程序页面</string>
+	<string name="activity_mini_desc">这是微信小程序恢复的控制器界面</string>
 	<string name="check_params">查看参数</string>
 	<string name="activity_text_a">A</string>
 	<string name="activity_text_b">B</string>
 	<string name="activity_text_c">C</string>
 	<string name="activity_text_d">D</string>
-	
-	<string name="common_scenes">常见应用场景</string>
+
+	<string name="common_wx_mini">小程序</string>
+	<string name="common_scenes">应用场景</string>
 	<string name="news_app">资讯App</string>
 	<string name="vedio_app">视频App</string>
 	<string name="shopping_app">电商App</string>
@@ -40,7 +45,7 @@
 	<string name="movies">电影视频</string>
 	<string name="related_videos">专题联播</string>
 	
-	<string name="params_scenes">传入参数场景</string>
+	<string name="params_scenes">参数场景</string>
 	<string name="air_ticket_app">飞机票App</string>
 	<string name="invite_users_scene">邀请用户发奖励场景</string>
 	

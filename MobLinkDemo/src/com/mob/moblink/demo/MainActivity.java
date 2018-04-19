@@ -22,250 +22,347 @@ import java.util.HashMap;
 
 public class MainActivity extends BaseActivity {
 
-	private static Activity sFirstInstance;
-	private Context context;
-	private Spinner spPath;
-	private EditText etSource;
-	private EditText etKey1;
-	private EditText etKey2;
-	private EditText etKey3;
-	private EditText etValue1;
-	private EditText etValue2;
-	private EditText etValue3;
-	private Button btnShare;
-	private Button btnGetMobID;
-	private TextView tvSetDefValue;
-	private View tag1;
-	private View tag2;
-	private View tag3;
-	private View layoutTag1;
-	private View layoutTag2;
-	private View layoutTag3;
-	private View llNews;
-	private View llVideos;
-	private View llShopping;
-	private View llAirTicket;
-	private View llInviteUser;
+    private static Activity sFirstInstance;
+    private Context context;
 
-	private String mobID;
+    private static final int[] TAB_INDEX = new int[]{
+            R.id.ll_tag1,
+            R.id.ll_tag2,
+            R.id.ll_tag3,
+            R.id.ll_tag4
+    };
+    private static final int[] TAB_CONTENT = new int[]{
+            R.id.layout_tag1,
+            R.id.layout_tag2,
+            R.id.layout_tag3,
+            R.id.layout_tag4
+    };
 
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (null == sFirstInstance) {
-			sFirstInstance = this;
-			setContentView(R.layout.activity_main);
-			initView();
-		} else if (this != sFirstInstance) {
-			// 防止微信跳转过来，多个MainActivity界面(是singletop)
-			finish();
-		} else {
-			setContentView(R.layout.activity_main);
-			initView();
-		}
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (null == sFirstInstance) {
+            sFirstInstance = this;
+            setContentView(R.layout.activity_main);
+            initView();
+        } else if (this != sFirstInstance) {
+            // 防止微信跳转过来，多个MainActivity界面(是singletop)
+            finish();
+        } else {
+            setContentView(R.layout.activity_main);
+            initView();
+        }
+    }
 
-	private void initView() {
-		context = this.getApplicationContext();
-		tag1 = findViewById(R.id.ll_tag1);
-		tag2 = findViewById(R.id.ll_tag2);
-		tag3 = findViewById(R.id.ll_tag3);
-		layoutTag1 = findViewById(R.id.layout_tag1);
-		layoutTag2 = findViewById(R.id.layout_tag2);
-		layoutTag3 = findViewById(R.id.layout_tag3);
-		//底部工具类
-		tag1.setSelected(true);
-		tag1.setOnClickListener(this);
-		tag2.setOnClickListener(this);
-		tag3.setOnClickListener(this);
-		layoutTag1.setVisibility(View.VISIBLE);
-		layoutTag2.setVisibility(View.GONE);
-		layoutTag3.setVisibility(View.GONE);
-		//第一个tag的view
-		spPath = (Spinner)findViewById(R.id.sp_path);
-		etKey1 = (EditText) findViewById(R.id.et_key1);
-		etKey2 = (EditText) findViewById(R.id.et_key2);
-		etKey3 = (EditText) findViewById(R.id.et_key3);
-		etValue1 = (EditText) findViewById(R.id.et_value1);
-		etValue2 = (EditText) findViewById(R.id.et_value2);
-		etValue3 = (EditText) findViewById(R.id.et_value3);
-		etSource = (EditText) findViewById(R.id.et_source);
-		btnGetMobID = (Button) findViewById(R.id.btn_get_mobid);
-		btnShare = (Button) findViewById(R.id.btn_share);
-		tvSetDefValue = (TextView) findViewById(R.id.tv_set_default_value);
+    private void initView() {
+        context = this.getApplicationContext();
+        for (int i = 0; i < TAB_INDEX.length; i++) {
+            View v = findViewById(TAB_INDEX[i]);
+            v.setOnClickListener(this);
+        }
+        new DemoPage(findViewById(R.id.layout_tag1));
+        new ScenePage(findViewById(R.id.layout_tag2));
+        new ParamPage(findViewById(R.id.layout_tag3));
+        new DemoPage(findViewById(R.id.layout_tag4));
+        switchTab(R.id.ll_tag1);
+    }
 
-		btnShare.setSelected(false);
-		btnShare.setOnClickListener(this);
-		btnGetMobID.setOnClickListener(this);
-		tvSetDefValue.setOnClickListener(this);
-		//第二个tag的view
-		llNews = findViewById(R.id.ll_news);
-		llVideos = findViewById(R.id.ll_videos);
-		llShopping = findViewById(R.id.ll_shopping);
-		llNews.setOnClickListener(this);
-		llVideos.setOnClickListener(this);
-		llShopping.setOnClickListener(this);
-		//第三个tag的view
-		llAirTicket = findViewById(R.id.ll_air_ticket);
-		llInviteUser = findViewById(R.id.ll_invite_users);
-		llAirTicket.setOnClickListener(this);
-		llInviteUser.setOnClickListener(this);
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent() != null) {
+            int tag = getIntent().getIntExtra("tag", -1);
+            if (tag >= 0 && tag < TAB_INDEX.length) {
+                switchTab(TAB_INDEX[tag]);
+            }
+        }
+    }
 
-	protected void onResume() {
-		super.onResume();
-		if (getIntent() != null) {
-			int tag = getIntent().getIntExtra("tag", 0);
-			if (tag == 1) {
-				onClick(tag1);
-			} else if (tag == 2) {
-				onClick(tag2);
-			} else if (tag == 3) {
-				onClick(tag3);
-			}
-		}
-	}
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_tag1:
+            case R.id.ll_tag2:
+            case R.id.ll_tag3:
+            case R.id.ll_tag4: {
+                switchTab(v.getId());
+            }
+            break;
+            default: {
+                super.onClick(v);
+            }
+            break;
 
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.ll_tag1:{
-				//演示，tag工具栏的点击处理
-				layoutTag1.setVisibility(View.VISIBLE);
-				layoutTag2.setVisibility(View.GONE);
-				layoutTag3.setVisibility(View.GONE);
-				tag1.setSelected(true);
-				tag2.setSelected(false);
-				tag3.setSelected(false);
-			} break;
-			case R.id.ll_tag2:{
-				//常见应用场景，tag工具栏的点击处理
-				layoutTag2.setVisibility(View.VISIBLE);
-				layoutTag1.setVisibility(View.GONE);
-				layoutTag3.setVisibility(View.GONE);
-				tag2.setSelected(true);
-				tag1.setSelected(false);
-				tag3.setSelected(false);
-			} break;
-			case R.id.ll_tag3:{
-				//传入参数场景，tag工具栏的点击处理
-				layoutTag3.setVisibility(View.VISIBLE);
-				layoutTag1.setVisibility(View.GONE);
-				layoutTag2.setVisibility(View.GONE);
-				tag3.setSelected(true);
-				tag1.setSelected(false);
-				tag2.setSelected(false);
-			} break;
-			case R.id.btn_get_mobid:{
-				//获取MobID
-				HashMap<String, Object> params = new HashMap<String, Object>();
-				String source = etSource.getText().toString();
-				int selectedID = spPath.getSelectedItemPosition();
-				String key1 = etKey1.getText().toString();
-				String key2 = etKey2.getText().toString();
-				String key3 = etKey3.getText().toString();
-				String value1 = etValue1.getText().toString();
-				String value2 = etValue2.getText().toString();
-				String value3 = etValue3.getText().toString();
-				params.put(key1, value1);
-				params.put(key2, value2);
-				params.put(key3, value3);
+        }
+    }
 
-				Scene s = new Scene();
-				s.path = CommonUtils.MAIN_PATH_ARR[selectedID];
-				s.source = source;
-				s.params = params;
-				MobLink.getMobID(s, new ActionListener<String>() {
-					public void onResult(String mobID) {
-						if (mobID != null) {
-							btnShare.setSelected(true);
-							MainActivity.this.mobID = mobID;
-							Toast.makeText(context, "Get MobID Successfully!", Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(context, "Get MobID Failed!", Toast.LENGTH_SHORT).show();
-						}
-					}
+    private void switchTab(int tagId) {
+        for (int i = 0; i < TAB_INDEX.length; i++) {
+            View tab = findViewById(TAB_INDEX[i]);
+            View content = findViewById(TAB_CONTENT[i]);
+            if (TAB_INDEX[i] == tagId) {
+                tab.setSelected(true);
+                content.setVisibility(View.VISIBLE);
+            } else {
+                tab.setSelected(false);
+                content.setVisibility(View.INVISIBLE);
+            }
+        }
 
-					public void onError(Throwable t) {
-						btnShare.setSelected(true);
-						if (t != null) {
-							Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-						}
-					}
-				});
-			} break;
-			case R.id.btn_share:{
-				if (TextUtils.isEmpty(mobID)) {
-					CommonUtils.getMobIdDialog(this).show();
-					return;
-				}
-				//演示界面的分享功能
-				int selectedID = spPath.getSelectedItemPosition();
-				String shareUrl = CommonUtils.SHARE_URL + CommonUtils.MAIN_PATH_ARR[selectedID];
-				if (!TextUtils.isEmpty(mobID)) {
-					shareUrl += "?mobid=" + mobID;
-				}
-				String title = getString(R.string.show_share_titel);
-				String text = getString(R.string.share_text);
-				String imgPath = CommonUtils.copyImgToSD(this, R.drawable.demo_share_moblink , "moblink");
-				CommonUtils.showShare(this, title, text, shareUrl, imgPath);
-			} break;
-			case  R.id.tv_set_default_value:{
-				//填充默认值
-				etSource.setText(R.string.app_name);
-				etKey1.setText(R.string.key1);
-				etKey2.setText(R.string.key2);
-				etKey3.setText(R.string.key3);
-				etValue1.setText(R.string.value1);
-				etValue2.setText(R.string.value2);
-				etValue3.setText(R.string.value3);
-			} break;
-			case R.id.ll_news:{
-				//资讯APP，打开新闻列表
-				Intent intent = new Intent(MainActivity.this, NewsActivity.class);
-				startActivity(intent);
-			} break;
-			case R.id.ll_videos:{
-				//视频APP，打开视频列表
-				Intent intent = new Intent(MainActivity.this, VideosActivity.class);
-				startActivity(intent);
-			} break;
-			case R.id.ll_shopping:{
-				//电商APP，打开商品列表
-				Intent intent = new Intent(MainActivity.this, ShoppingActivity.class);
-				startActivity(intent);
-			} break;
-			case R.id.ll_air_ticket:{
-				//飞机票APP，打开飞机票选择界面
-				Intent intent = new Intent(MainActivity.this, TicketActivity.class);
-				startActivity(intent);
-			} break;
-			case R.id.ll_invite_users:{
-				//打开邀请用户界面
-				Intent intent = new Intent(MainActivity.this, InviteActivity.class);
-				startActivity(intent);
-			} break;
-			default: {
-				super.onClick(v);
-			} break;
-		}
-	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (sFirstInstance == this) {
-			sFirstInstance = null;
-		}
-	}
+    }
 
-	/**
-	 * 回退时, 必须时拉起launcher.
-	 */
-	protected static void launcherMainIfNecessary(Activity current) {
-		if (null == sFirstInstance) {
-			Intent intent = new Intent(current, MainActivity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-			current.startActivity(intent);
-		}
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (sFirstInstance == this) {
+            sFirstInstance = null;
+        }
+    }
+
+    /**
+     * 回退时, 必须时拉起launcher.
+     */
+    protected static void launcherMainIfNecessary(Activity current) {
+        if (null == sFirstInstance) {
+            Intent intent = new Intent(current, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            current.startActivity(intent);
+        }
+    }
+
+    class DemoPage extends Object implements View.OnClickListener {
+
+        private View rootView;
+        private EditText etSource;
+        private Button btnShare;
+
+        private String mobID;
+        private String selectPath;
+
+        public DemoPage(View view) {
+            super();
+            rootView = view;
+            initView();
+        }
+
+        private void initView() {
+            etSource = (EditText) findViewById(R.id.et_source);
+            findViewById(R.id.btn_get_mobid).setOnClickListener(this);
+            findViewById(R.id.tv_set_default_value).setOnClickListener(this);
+
+
+            btnShare = (Button) findViewById(R.id.btn_share);
+            if (null == btnShare) {
+                btnShare = (Button) findViewById(R.id.btn_share_to_wxmini);
+            }
+
+            btnShare.setSelected(false);
+            btnShare.setOnClickListener(this);
+        }
+
+        private View findViewById(int id) {
+            return rootView.findViewById(id);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_get_mobid: {
+                    //获取MobID
+                    String source = etSource.getText().toString();
+                    Spinner spPath = (Spinner) findViewById(R.id.sp_path);
+                    Scene s = new Scene();
+                    if (null != spPath) {
+                        int selectedID = spPath.getSelectedItemPosition();
+                        s.path = CommonUtils.MAIN_PATH_ARR[selectedID];
+                    } else {
+                        s.path = getString(R.string.path_wx_mini);
+                    }
+                    selectPath = s.path;
+                    s.source = source;
+                    s.params = collectParams();
+                    MobLink.getMobID(s, new ActionListener<String>() {
+                        public void onResult(String mobID) {
+                            if (mobID != null) {
+                                btnShare.setSelected(true);
+                                DemoPage.this.mobID = mobID;
+                                Toast.makeText(context, "Get MobID Successfully!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "Get MobID Failed!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        public void onError(Throwable t) {
+                            btnShare.setSelected(true);
+                            if (t != null) {
+                                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                break;
+                case R.id.btn_share: {
+                    if (TextUtils.isEmpty(mobID)) {
+                        CommonUtils.getMobIdDialog(MainActivity.this).show();
+                        return;
+                    }
+                    //演示界面的分享功能
+                    String shareUrl = CommonUtils.SHARE_URL + selectPath;
+                    if (!TextUtils.isEmpty(mobID)) {
+                        shareUrl += "?mobid=" + mobID;
+                    }
+                    String title = getString(R.string.show_share_titel);
+                    String text = getString(R.string.share_text);
+                    String imgPath = CommonUtils.copyImgToSD(MainActivity.this, R.drawable.demo_share_moblink, "moblink");
+                    CommonUtils.showShare(MainActivity.this, title, text, shareUrl, imgPath);
+                }
+                break;
+                case R.id.btn_share_to_wxmini: {
+                    if (TextUtils.isEmpty(mobID)) {
+                        CommonUtils.getMobIdDialog(MainActivity.this).show();
+                        return;
+                    }
+                    CommonUtils.showShareWxMini(MainActivity.this, mobID);
+                }
+                break;
+                case R.id.tv_set_default_value: {
+                    //填充默认值
+                    etSource.setText(R.string.app_name);
+                    final int[] tvKeys = new int[]{
+                            R.id.et_key1,
+                            R.id.et_key2,
+                            R.id.et_key3
+                    };
+                    final int[] tvValues = new int[] {
+                            R.id.et_value1,
+                            R.id.et_value2,
+                            R.id.et_value3
+                    };
+                    final int[] keys = new int[] {
+                            R.string.key1,
+                            R.string.key2,
+                            R.string.key3
+                    };
+                    final int[] values = new int[] {
+                            R.string.value1,
+                            R.string.value2,
+                            R.string.value3
+                    };
+
+                    for (int i = 0; i < tvKeys.length; i++) {
+                        TextView tv = (TextView)findViewById(tvKeys[i]);
+                        tv.setText(keys[i]);
+                        tv = (TextView)findViewById(tvValues[i]);
+                        tv.setText(values[i]);
+                    }
+                }
+                break;
+
+            }
+        }
+
+        public HashMap<String, Object> collectParams() {
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            final int[] keys = new int[]{
+                    R.id.et_key1,
+                    R.id.et_key2,
+                    R.id.et_key3
+            };
+            final int[] values = new int[] {
+                    R.id.et_value1,
+                    R.id.et_value2,
+                    R.id.et_value3
+            };
+
+            for (int i = 0; i < keys.length; i++) {
+                TextView tvKey = (TextView)findViewById(keys[i]);
+                TextView tvValue = (TextView)findViewById(values[i]);
+                params.put(tvKey.getText().toString(), tvValue.getText().toString());
+            }
+            return params;
+        }
+    }
+
+    class ScenePage extends Object implements View.OnClickListener {
+        private View rootView;
+
+        public ScenePage(View view) {
+            super();
+            rootView = view;
+            initView();
+        }
+
+        private void initView() {
+            findViewById(R.id.ll_news).setOnClickListener(this);
+            findViewById(R.id.ll_videos).setOnClickListener(this);
+            findViewById(R.id.ll_shopping).setOnClickListener(this);
+        }
+
+        private View findViewById(int id) {
+            return rootView.findViewById(id);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.ll_news: {
+                    //资讯APP，打开新闻列表
+                    Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.ll_videos: {
+                    //视频APP，打开视频列表
+                    Intent intent = new Intent(MainActivity.this, VideosActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.ll_shopping: {
+                    //电商APP，打开商品列表
+                    Intent intent = new Intent(MainActivity.this, ShoppingActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            }
+        }
+    }
+
+    class ParamPage extends Object implements View.OnClickListener {
+        private View rootView;
+
+        public ParamPage(View view) {
+            super();
+            rootView = view;
+            initView();
+        }
+
+        private void initView() {
+            findViewById(R.id.ll_air_ticket).setOnClickListener(this);
+            findViewById(R.id.ll_invite_users).setOnClickListener(this);
+        }
+
+        private View findViewById(int id) {
+            return rootView.findViewById(id);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.ll_air_ticket: {
+                    //飞机票APP，打开飞机票选择界面
+                    Intent intent = new Intent(MainActivity.this, TicketActivity.class);
+                    startActivity(intent);
+                }
+                break;
+                case R.id.ll_invite_users: {
+                    //打开邀请用户界面
+                    Intent intent = new Intent(MainActivity.this, InviteActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            }
+        }
+    }
 }

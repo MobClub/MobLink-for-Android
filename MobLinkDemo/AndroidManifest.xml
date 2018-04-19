@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="205" android:versionName="2.0.5" package="com.mob.moblink.demo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="20201" android:versionName="2.2.1" package="com.mob.moblink.demo">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16" tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare"/>
 
@@ -20,7 +20,7 @@
         <!--  <meta-data android:name="Mob-AppKey" android:value="1cc67a00af338"/>
         <meta-data android:name="Mob-AppSecret" android:value="ae8865916772cb1069c37518d81135d8"/>  -->
 
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:launchMode="singleTop" android:name=".MainActivity" android:process=":test" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:launchMode="singleTop" android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -96,6 +96,25 @@
                 <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/demo/d" /> -->
             </intent-filter>
         </activity>
+
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ActivityMini" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="com.mob.moblink.demo" android:path="/demo/mini" android:scheme="mlink"/>
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/mini" android:scheme="http"/>
+                <data android:host="7ne9.ulml.mob.com" android:path="/demo/mini" android:scheme="https"/>
+                <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/demo/d" />
+                <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/demo/d" /> -->
+            </intent-filter>
+        </activity>
+
         <activity android:configChanges="keyboardHidden|orientation|screenSize" android:launchMode="singleTop" android:name=".ShoppingActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -190,20 +209,6 @@
                 <!-- <data android:scheme="http" android:host="7pb6.ulml.mob.com" android:path="/params/ticket" />
                 <data android:scheme="https" android:host="7pb6.ulml.mob.com" android:path="/params/ticket" /> -->
             </intent-filter>
-        </activity>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:multiprocess="true" android:name="com.mob.tools.MobUIShell" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:windowSoftInputMode="stateHidden|adjustResize">
-
-            <intent-filter android:priority="1000">
-                <data android:scheme="tencent1105914667"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-            </intent-filter>
-
-            <intent-filter>
-				<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
         </activity>
         <service android:name=".service.MobLinkService"/>
 

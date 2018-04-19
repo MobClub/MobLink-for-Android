@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../MobLink/build-mix.gradle'
+apply from: 'build-mix.gradle'
 apply plugin: 'com.mob.sdk'
 
 android {
@@ -66,9 +66,14 @@ android {
 }
 
 dependencies {
-    if (!buildDepFromMaven) {
+    Project p = findProject(':MobLink')
+    if (null != p) {
         releaseCompile project(path: ':MobLink', configuration: 'release')
         debugCompile project(path: ':MobLink', configuration: 'debug')
+    } else {
+        MobSDK {
+            MobLink {version = "2.2.1"}
+        }
     }
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -76,8 +81,6 @@ dependencies {
 }
 
 MobSDK {
-    MobCommons {}
-    MobTools {}
     ShareSDK {
         gui true
         devInfo {
@@ -105,21 +108,25 @@ MobSDK {
             Wechat {
                 sortId 4
                 appId "wx01634d672597c03c"
-                appSecret "060655c9958226553d494328b779e981"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                userName "gh_531c99d3b4a7"
+                path "pages/index/index?aaa=ht"
                 bypassApproval false
+                withShareTicket true
+                miniprogramType 2
                 enable true
             }
             WechatMoments {
                 sortId 5
                 appId "wx01634d672597c03c"
-                appSecret "060655c9958226553d494328b779e981"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
                 bypassApproval false
                 enable true
             }
             WechatFavorite {
                 sortId 6
                 appId "wx01634d672597c03c"
-                appSecret "060655c9958226553d494328b779e981"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
                 bypassApproval false
                 enable true
             }
@@ -346,9 +353,6 @@ MobSDK {
                 enable false
             }
         }
-    }
-    if (buildDepFromMaven) {
-        MobLink {version = "2.0.5"}
     }
 }
 

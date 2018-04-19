@@ -20,6 +20,7 @@ import java.util.HashMap;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
+import cn.sharesdk.wechat.friends.Wechat;
 
 public class CommonUtils {
 
@@ -31,7 +32,7 @@ public class CommonUtils {
 	public static final String SHARE_URL;
 	static {
 		if (DEBUGGABLE) {
-			SHARE_URL = "http://10.18.97.58:2121";
+			SHARE_URL = "http://10.18.97.58:2122/test";
 		} else {
 			SHARE_URL = "http://f.moblink.mob.com/test";
 		}
@@ -297,6 +298,29 @@ public class CommonUtils {
 					paramsToShare.setText(value);
 
 				}
+			}
+		});
+		oks.show(context);
+	}
+
+	/**
+	 * 分享到微信小程序
+	 */
+	public static void showShareWxMini(final Context context, final String mobId) {
+		OnekeyShare oks = new OnekeyShare();
+		oks.setPlatform(Wechat.NAME);
+		oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+			public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
+				Platform.ShareParams shareParams = paramsToShare;
+				shareParams.setText("Test MiniProgram For MobLink");
+				shareParams.setTitle("MiniProgram For MobLink");
+				shareParams.setUrl("http://www.mob.com");
+				shareParams.setShareType(Platform.SHARE_WXMINIPROGRAM);
+
+
+				shareParams.setWxPath("pages/index/index?mobid=" + mobId + "&custom=来自App的自定义参数");
+				String imgPath = CommonUtils.copyImgToSD(context, R.drawable.demo_share_wxmini, "moblink-wxmini");
+				shareParams.setImagePath(imgPath);
 			}
 		});
 		oks.show(context);

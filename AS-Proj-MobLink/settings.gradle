@@ -1,5 +1,5 @@
-include ':MobLink'
-project(':MobLink').projectDir = new File('../MobLink')
+//include ':MobLink'
+//project(':MobLink').projectDir = new File('../MobLink')
 
 //include ':MobTools'
 //project(':MobTools').projectDir = new File('../../../ShareSDKTools')
