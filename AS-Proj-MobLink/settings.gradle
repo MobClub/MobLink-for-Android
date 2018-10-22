@@ -1,11 +1,2 @@
-//include ':MobLink'
-//project(':MobLink').projectDir = new File('../MobLink')
-
-//include ':MobTools'
-//project(':MobTools').projectDir = new File('../../../ShareSDKTools')
-//
-//include ':MobCommons'
-//project(':MobCommons').projectDir = new File('../../../MobCommons')
-
-include ':MobLinkDemo'
-project(':MobLinkDemo').projectDir = new File('../MobLinkDemo')
+include ':MobLink-Demo'
+project(':MobLink-Demo').projectDir = new File('../MobLink-Demo')

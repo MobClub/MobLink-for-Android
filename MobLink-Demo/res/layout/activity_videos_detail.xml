@@ -1,0 +1,250 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/demo_iv_back"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/movies"
+            android:textColor="#000000"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:text="@string/share"
+            android:textColor="@color/blue"
+            android:textSize="14dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d9d9d9"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:background="#000000">
+        <WebView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:layerType="software"
+            android:background="#000000"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_videos_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#d9d9d9"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/related_videos"
+                android:textColor="#000000"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d9d9d9"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_video_sug01"
+                android:layout_width="match_parent"
+                android:layout_height="81dp">
+
+                <ImageView
+                    android:id="@+id/iv_relate_video1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/demo_video_sug01"/>
+
+                <TextView
+                    android:id="@+id/tv_relate_video1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_relate_video1"
+                    android:padding="10dp"
+                    android:text="@string/video_sug01_name"
+                    android:textColor="#000000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_relate_video1"
+                    android:layout_toRightOf="@+id/iv_relate_video1"
+                    android:padding="10dp"
+                    android:text="@string/video_sug01_play_times"
+                    android:textColor="#a4a4a4"
+                    android:textSize="14dp"/>
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_video_sug02"
+                android:layout_width="match_parent"
+                android:layout_height="81dp">
+
+                <ImageView
+                    android:id="@+id/iv_relate_video2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/demo_video_sug02"/>
+
+                <TextView
+                    android:id="@+id/tv_relate_video2_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_relate_video2"
+                    android:padding="10dp"
+                    android:text="@string/video_sug02_name"
+                    android:textColor="#000000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_relate_video2"
+                    android:layout_toRightOf="@+id/iv_relate_video2"
+                    android:padding="10dp"
+                    android:text="@string/video_sug02_play_times"
+                    android:textColor="#a4a4a4"
+                    android:textSize="14dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_video_sug03"
+                android:layout_width="match_parent"
+                android:layout_height="81dp">
+
+                <ImageView
+                    android:id="@+id/iv_relate_video3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/demo_video_sug03"/>
+
+                <TextView
+                    android:id="@+id/tv_relate_video3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_relate_video3"
+                    android:padding="10dp"
+                    android:text="@string/video_sug03_name"
+                    android:textColor="#000000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_relate_video3"
+                    android:layout_toRightOf="@+id/iv_relate_video3"
+                    android:padding="10dp"
+                    android:text="@string/video_sug03_play_times"
+                    android:textColor="#a4a4a4"
+                    android:textSize="14dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_video_sug04"
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_relate_video4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/demo_video_sug04"/>
+
+                <TextView
+                    android:id="@+id/tv_relate_video4_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_relate_video4"
+                    android:padding="10dp"
+                    android:text="@string/video_sug04_name"
+                    android:textColor="#000000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_relate_video4"
+                    android:layout_toRightOf="@+id/iv_relate_video4"
+                    android:padding="10dp"
+                    android:text="@string/video_sug04_play_times"
+                    android:textColor="#a4a4a4"
+                    android:textSize="14dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d9d9d9"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

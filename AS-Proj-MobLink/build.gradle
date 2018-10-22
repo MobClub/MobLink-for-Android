@@ -14,14 +14,22 @@ buildscript {
     repositories {
         jcenter()
         maven {
+            url "http://maven.aliyun.com"
+        }
+        maven {
             url mavenMobUrl
         }
+        jcenter()
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "http://maven.aliyun.com"
+        }
+
         maven {
             url mavenMobUrl
         }
