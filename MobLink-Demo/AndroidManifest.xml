@@ -42,22 +42,6 @@
         <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name=".QRcodeExampleActivity" android:screenOrientation="portrait"/>
         <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name=".TicketActivity" android:screenOrientation="portrait"/>
         <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name=".TicketDetailActivity" android:screenOrientation="portrait"/>
-
-        <activity android:name="com.mob.moblink.MobLinkActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:host="com.mob.moblink.demo" android:scheme="mlink"/>
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:host="z.t4m.cn" android:scheme="http"/>
-                <data android:host="z.t4m.cn" android:scheme="https"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

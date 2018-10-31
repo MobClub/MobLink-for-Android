@@ -37,3 +37,6 @@ captures/
 
 # Keystore files
 *.jks
+
+AS-Proj-MobLink/.idea/
+AS-Proj-MobLink/gradle/
