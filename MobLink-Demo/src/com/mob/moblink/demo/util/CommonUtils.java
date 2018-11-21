@@ -20,7 +20,6 @@ import com.mob.moblink.demo.NewsDetailActivity;
 import com.mob.moblink.demo.QRcodeExampleActivity;
 import com.mob.moblink.demo.R;
 import com.mob.moblink.demo.ShoppingActivity;
-import com.mob.moblink.demo.ShoppingDetailActivity;
 import com.mob.moblink.demo.TicketDetailActivity;
 import com.mob.moblink.demo.VideosDetailActivity;
 import com.mob.tools.utils.ResHelper;
@@ -42,7 +41,6 @@ public class CommonUtils {
 	 * 标识, 连接是不是测试服
 	 */
 	public static final boolean DEBUGGABLE = MobLink.DEBUGGABLE;
-	private static int SHARE_URL_SWITCH = 0;
 
 	public static final String[] MAIN_PATH_ARR = {"/demo/a", "/demo/b", "/demo/c", "/demo/d"};
 	public static final String NEWS_PATH = "/scene/news";
@@ -353,42 +351,24 @@ public class CommonUtils {
 	}
 
 	public static String getShareUrl() {
-		SHARE_URL_SWITCH++;
 		String shareUrl;
-		if (false || SHARE_URL_SWITCH % 2 == 1) {
-			// 3.0.0短链版本
-			if (DEBUGGABLE) {
-				shareUrl = "http://10.18.97.58:2122/demoPro";
-			} else {
-				shareUrl = "http://f.moblink.mob.com/demoPro";
-			}
+		// 3.0.0短链版本
+		if (DEBUGGABLE) {
+			shareUrl = "http://10.18.97.58:2122/demoPro";
 		} else {
-			if (DEBUGGABLE) {
-				shareUrl = "http://10.18.97.58:2122/test";
-			} else {
-				shareUrl = "http://f.moblink.mob.com/test";
-			}
+			shareUrl = "http://f.moblink.mob.com/demoPro";
 		}
 		return shareUrl;
 	}
 
 	public static String getAppLinkShareUrl() {
-		SHARE_URL_SWITCH++;
 		String shareUrl;
-		if (false || SHARE_URL_SWITCH % 2 == 1) {
-			// 3.0.0短链版本
-			if (DEBUGGABLE) {
-				shareUrl = "http://70r9.link.mob.com";
+		// 3.0.0短链版本
+		if (DEBUGGABLE) {
+			shareUrl = "http://70r9.link.mob.com";
 
-			} else {
-				shareUrl = "http://z.t4m.cn";
-			}
 		} else {
-			if (DEBUGGABLE) {
-				shareUrl = "http://70r9.link.mob.com";
-			} else {
-				shareUrl = "http://z.t4m.cn";
-			}
+			shareUrl = "http://z.t4m.cn";
 		}
 		return shareUrl;
 	}
