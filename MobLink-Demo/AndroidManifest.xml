@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="30000" android:versionName="3.0.0" package="com.mob.moblink.demo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="30002" android:versionName="3.0.2" package="com.mob.moblink.demo">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16" tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare"/>
 

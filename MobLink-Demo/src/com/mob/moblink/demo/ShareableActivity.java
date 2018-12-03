@@ -1,7 +1,9 @@
 package com.mob.moblink.demo;
 
 import android.app.Dialog;
+import android.content.Intent;
 
+import com.mob.moblink.MobLink;
 import com.mob.moblink.Scene;
 import com.mob.moblink.SceneRestorable;
 import com.mob.moblink.demo.util.CommonUtils;
@@ -33,6 +35,13 @@ public class ShareableActivity extends BaseActivity implements SceneRestorable {
 				dialog.show();
 			}
 		}
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		setIntent(intent);
+		MobLink.updateNewIntent(getIntent(), this);
 	}
 
 	/**

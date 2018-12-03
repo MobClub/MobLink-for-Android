@@ -6,12 +6,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mob.moblink.Scene;
-import com.mob.moblink.SceneRestorable;
-import com.mob.moblink.demo.util.CommonUtils;
-
-import java.util.Map;
-
 public class ActivityC extends ShareableActivity {
 	private TextView tvActTitle;
 	private TextView tvActText;

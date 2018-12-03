@@ -73,7 +73,7 @@ dependencies {
     } else {
         MobSDK {
             MobLink {
-				version = "3.0.0"
+				version = "3.0.2"
                 uriScheme "mlink://com.mob.moblink.demo"
                 appLinkHost "z.t4m.cn"
             }
