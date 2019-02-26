@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="30dp"
+        android:paddingLeft="15dp">
+
+        <com.mob.tools.gui.AsyncImageView
+            android:id="@+id/moblink_demo_userIv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/moblink_demo_default_user"/>
+
+        <TextView
+            android:id="@+id/moblink_demo_usernameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/moblink_demo_userIv"
+            android:text="马皮皮"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/moblink_demo_usernameTv"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/moblink_demo_userIv"
+            android:text="高颜值用户"
+            android:textColor="@color/moblink_demo_gray"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@color/moblink_demo_bg"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/moblink_demo_layout_invite"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/moblink_demo_tatol_invite"
+                    android:layout_height="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moblink_demo_total_invite"
+                android:textSize="14sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/moblink_demo_numTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:text="0"
+                android:textColor="@color/moblink_demo_text"
+                android:textSize="35sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/moblink_demo_layout_income"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/moblink_demo_total_income"
+                    android:layout_height="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/moblink_demo_total_income"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/moblink_demo_getMoneyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:text="0"
+                android:textColor="@color/moblink_demo_text"
+                android:textSize="35sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/moblink_demo_localLl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/moblink_demo_local_invite"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/moblink_demo_local_invite"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/moblink_demo_right_arrow"
+            android:layout_height="15dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/moblink_demo_bg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:id="@+id/moblink_demo_shareLl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/moblink_demo_share_invite"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/moblink_demo_share_invite"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/moblink_demo_right_arrow"
+            android:layout_height="15dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/moblink_demo_bg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:id="@+id/moblink_demo_friendLl"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/moblink_demo_friends"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/moblink_demo_friends"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/moblink_demo_right_arrow"
+            android:layout_height="15dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/moblink_demo_bg"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

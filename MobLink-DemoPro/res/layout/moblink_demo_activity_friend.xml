@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="全部粉丝"
+        android:textSize="12sp"
+        android:textColor="@color/moblink_demo_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:background="#199DA4B8"
+        android:layout_height="40dp"/>
+
+    <ListView
+        android:id="@+id/moblink_demo_friendLv"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/moblink_demo_emptyTv"
+        android:layout_width="match_parent"
+        android:text="暂无好友"
+        android:visibility="gone"
+        android:textSize="14sp"
+        android:textColor="@color/moblink_demo_gray"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="28dp"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>
