@@ -30,7 +30,6 @@ import com.mob.moblink.demo.restore.game.GameActivity;
 import com.mob.moblink.demo.restore.novel.NovelReadActivity;
 import com.mob.moblink.demo.restore.view.NewsDetailActivity;
 import com.mob.moblink.demo.splash.SplashActivity;
-import com.mob.moblink.utils.MobLinkLog;
 import com.mob.tools.utils.ResHelper;
 
 import java.io.File;
