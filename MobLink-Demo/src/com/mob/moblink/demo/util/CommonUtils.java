@@ -63,7 +63,7 @@ public class CommonUtils {
 		PATH_SERVER_MAP.put("/demo/c", ActivityC.class);
 		PATH_SERVER_MAP.put("/demo/d", ActivityD.class);
 	}
-
+	
 	/**
 	 * 创建一个自定义dialog，场景还原的参数展示dialog
 	 * @param context
@@ -137,7 +137,7 @@ public class CommonUtils {
 		dialog.setCanceledOnTouchOutside(true);
 		return dialog;
 	}
-
+	
 	/**
 	 * 获取新闻列表数据
 	 * @param context
@@ -166,7 +166,7 @@ public class CommonUtils {
 			item.put("time", newsTime[i]);
 			item.put("detail", newsDetail[i]);
 			list.add(item);
-		}
+		}		
 		return list;
 	}
 
@@ -310,7 +310,8 @@ public class CommonUtils {
 		oks.setImagePath(imgPath);
 		oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
 			public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-				if ("SinaWeibo".endsWith(platform.getName())) {
+				if ("SinaWeibo".endsWith(platform.getName())
+						|| "Twitter".endsWith(platform.getName())) {
 					String text = paramsToShare.getText() + paramsToShare.getUrl();
 					paramsToShare.setText(text);
 				} else if ("ShortMessage".endsWith(platform.getName())) {

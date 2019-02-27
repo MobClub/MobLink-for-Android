@@ -52,7 +52,8 @@ public class ShareHelper {
 		oks.setImagePath(imgPath);
 		oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
 			public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-				if ("SinaWeibo".endsWith(platform.getName())) {
+				if ("SinaWeibo".endsWith(platform.getName())
+						|| "Twitter".endsWith(platform.getName())) {
 					String text = paramsToShare.getText() + paramsToShare.getUrl();
 					paramsToShare.setText(text);
 					paramsToShare.setUrl(null);
