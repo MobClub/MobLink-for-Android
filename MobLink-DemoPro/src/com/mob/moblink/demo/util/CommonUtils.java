@@ -12,7 +12,11 @@ import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.net.Uri;
+import android.os.Build;
+import android.security.NetworkSecurityPolicy;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,6 +30,7 @@ import com.mob.moblink.demo.restore.game.GameActivity;
 import com.mob.moblink.demo.restore.novel.NovelReadActivity;
 import com.mob.moblink.demo.restore.view.NewsDetailActivity;
 import com.mob.moblink.demo.splash.SplashActivity;
+import com.mob.moblink.utils.MobLinkLog;
 import com.mob.tools.utils.ResHelper;
 
 import java.io.File;
@@ -334,5 +339,36 @@ public class CommonUtils {
 			demoUrl = "http://61.174.10.198:8999";
 		}
 		return demoUrl;
+	}
+
+	public static String checkHttpRequestUrl(String requestUrl) {
+		try {
+			if (!TextUtils.isEmpty(requestUrl) && Build.VERSION.SDK_INT >= 23 && !NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted()) {
+				requestUrl = requestUrl.trim();
+				if (requestUrl.startsWith("http://")) {
+					Uri uri = Uri.parse(requestUrl.trim());
+					if (uri != null) {
+						String scheme = uri.getScheme();
+						if (scheme != null && scheme.equals("http")) {
+							String host = uri.getHost();
+							String path = uri.getPath();
+							if (host != null) {
+								int port = uri.getPort();
+								host = host + (port > 0 && port != 80 ? ":" + port : "");
+								if (Build.VERSION.SDK_INT >= 24 && NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted(host)) {
+									return requestUrl;
+								}
+							}
+
+							return "https://" + host + (path == null ? "" : path);
+						}
+					}
+				}
+			}
+		} catch (Throwable t) {
+			Log.d("CommonUtils", "checkHttpRequestUrl encountered problems", t);
+		}
+
+		return requestUrl;
 	}
 }

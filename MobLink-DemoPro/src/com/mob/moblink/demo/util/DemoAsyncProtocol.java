@@ -72,7 +72,7 @@ public class DemoAsyncProtocol {
 		} else {
 			userId = userid;
 		}
-		networkHelper.asyncConnect(getServerUrl(USER_INFO), getParams(), new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(USER_INFO)), getParams(), new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -114,7 +114,7 @@ public class DemoAsyncProtocol {
 
 	private static void login(final DemoAsyncListener<DemoUser> listener) {
 		ensureInit();
-		networkHelper.asyncConnect(getServerUrl(LOGIN), new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(LOGIN)), new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -162,7 +162,7 @@ public class DemoAsyncProtocol {
 	 */
 	public static void friendList(final DemoAsyncListener<FriendList> listener) {
 		ensureInit();
-		networkHelper.asyncConnect(getServerUrl(QUERY_FRIEND), getParams(), new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(QUERY_FRIEND)), getParams(), new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -210,7 +210,7 @@ public class DemoAsyncProtocol {
 			params.put("channel", channel);
 		}
 
-		networkHelper.asyncConnect(getServerUrl(ADD_FRIEND), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(ADD_FRIEND)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -254,7 +254,7 @@ public class DemoAsyncProtocol {
 		ensureInit();
 		HashMap<String, Object> params = getParams();
 		params.put("addId", addId);
-		networkHelper.asyncConnect(getServerUrl(DEL_FRIEND), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(DEL_FRIEND)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -305,7 +305,7 @@ public class DemoAsyncProtocol {
 			params.put("roomId", roomId);
 		}
 
-		networkHelper.asyncConnect(getServerUrl(JOIN_ROOM), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(JOIN_ROOM)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -347,7 +347,7 @@ public class DemoAsyncProtocol {
 
 	public static void exitRoom(final DemoAsyncListener<Integer> listener) {
 		ensureInit();
-		networkHelper.asyncConnect(getServerUrl(EXIT_ROOM), getParams(), new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(EXIT_ROOM)), getParams(), new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -396,7 +396,7 @@ public class DemoAsyncProtocol {
 		ensureInit();
 		HashMap<String, Object> params = getParams();
 		params.put("roomId", roomId);
-		networkHelper.asyncConnect(getServerUrl(HEART_ROOM), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(HEART_ROOM)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -441,7 +441,7 @@ public class DemoAsyncProtocol {
 	 */
 	public static void queryPushInfo(final DemoAsyncListener<PushInfo> listener) {
 		ensureInit();
-		networkHelper.asyncConnect(getServerUrl(QUERY_PUSH), getParams(), new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(QUERY_PUSH)), getParams(), new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -488,7 +488,7 @@ public class DemoAsyncProtocol {
 		ensureInit();
 		HashMap<String, Object> params = getParams();
 		params.put("type", type);
-		networkHelper.asyncConnect(getServerUrl(RECORD), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(RECORD)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -536,7 +536,7 @@ public class DemoAsyncProtocol {
 		HashMap<String, Object> params = getParams();
 		params.put("sourceId", sourceId);
 		params.put("scene", scene);
-		networkHelper.asyncConnect(getServerUrl(SCENE_LOG), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(SCENE_LOG)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
@@ -592,7 +592,7 @@ public class DemoAsyncProtocol {
 			params.put("type", type);
 		}
 
-		networkHelper.asyncConnect(getServerUrl(ADD_MONEY_PUSH), params, new HttpCallBack<String>() {
+		networkHelper.asyncConnect(CommonUtils.checkHttpRequestUrl(getServerUrl(ADD_MONEY_PUSH)), params, new HttpCallBack<String>() {
 			@Override
 			public void onStart(String url) {
 
