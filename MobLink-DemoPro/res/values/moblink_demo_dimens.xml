@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<dimen name="moblink_demo_text_size_title_bar">22sp</dimen>
-	<dimen name="moblink_demo_height_title_bar">39dp</dimen>
-	<dimen name="moblink_demo_splash_title">27sp</dimen>
-	<dimen name="moblink_demo_splash_desc">15sp</dimen>
-</resources>

@@ -1,4 +1,0 @@
-include ':MobLink-Demo'
-project(':MobLink-Demo').projectDir = new File('../MobLink-Demo')
-include ':MobLink-DemoPro'
-project(':MobLink-DemoPro').projectDir = new File('../MobLink-DemoPro')
