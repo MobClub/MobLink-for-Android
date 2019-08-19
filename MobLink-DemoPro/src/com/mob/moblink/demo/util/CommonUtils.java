@@ -313,7 +313,7 @@ public class CommonUtils {
 		if (DEBUGGABLE) {
 			shareUrl = "http://10.18.97.58:2122";
 		} else {
-			shareUrl = "http://f.moblink.mob.com";
+			shareUrl = "http://f.moblink.mob.com/pro";
 		}
 		return shareUrl;
 	}
