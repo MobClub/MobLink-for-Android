@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#fff"
+             android:orientation="vertical">
+
+    <com.mob.tools.gui.MobViewPager
+        android:id="@+id/moblink_demo_splash_mobviewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/moblink_demo_splash_skip"
+        android:layout_width="65dp"
+        android:text="@string/moblink_demo_splash_skip"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/moblink_demo_skip_blue"
+        android:background="@drawable/moblink_demo_btn_blue_stroke_round"
+        android:layout_height="28dp"/>
+
+    <LinearLayout
+        android:id="@+id/moblink_demo_splash_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/moblink_demo_indicator1"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/moblink_demo_splash_indicator_selector"/>
+
+        <View
+            android:id="@+id/moblink_demo_indicator2"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/moblink_demo_splash_indicator_selector"/>
+
+        <View
+            android:id="@+id/moblink_demo_indicator3"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/moblink_demo_splash_indicator_selector"/>
+    </LinearLayout>
+
+</RelativeLayout>

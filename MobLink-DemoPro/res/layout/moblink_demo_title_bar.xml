@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/moblink_demo_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/moblink_demo_height_title_bar"
+                android:background="@color/moblink_demo_blue">
+
+    <ImageView
+        android:id="@+id/molink_demo_title_bar_left"
+        android:layout_width="@dimen/moblink_demo_height_title_bar"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:paddingRight="5dp"
+        android:src="@drawable/moblink_demo_white_back"/>
+
+    <TextView
+        android:id="@+id/moblink_demo_title_bar_center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:id="@+id/molink_demo_title_bar_right"
+        android:layout_width="@dimen/moblink_demo_height_title_bar"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/moblink_demo_white_share"/>
+</RelativeLayout>

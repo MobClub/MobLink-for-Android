@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/dashline"
+            android:layout_width="1dp"
+            android:layout_height="192dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="43dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/moblink_demo_dash_line"/>
+        
+        <ImageView
+            android:id="@+id/step_one"
+            android:layout_width="60dp"
+            android:layout_height="29dp"
+            android:src="@drawable/moblink_demo_step_one"/>
+        <ImageView
+            android:id="@+id/step_two"
+            android:layout_width="60dp"
+            android:layout_height="29dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/moblink_demo_step_two"/>
+        <ImageView
+            android:id="@+id/step_three"
+            android:layout_width="60dp"
+            android:layout_height="29dp"
+            android:layout_below="@+id/dashline"
+            android:src="@drawable/moblink_demo_step_three"/>
+
+        <TextView
+            android:id="@+id/moblink_demo_step_oneTv"
+            android:layout_width="wrap_content"
+            android:textColor="@color/moblink_demo_text"
+            android:layout_toRightOf="@+id/step_one"
+            android:paddingLeft="12dp"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginTop="-2dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/moblink_demo_step_twoTv"
+            android:layout_width="wrap_content"
+            android:text="@string/moblink_demo_step_two"
+            android:textColor="@color/moblink_demo_text"
+            android:layout_toRightOf="@+id/step_two"
+            android:lineSpacingExtra="5dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="12dp"
+            android:paddingTop="6dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/moblink_demo_step_threeTv"
+            android:layout_width="wrap_content"
+            android:textColor="@color/moblink_demo_text"
+            android:layout_toRightOf="@+id/step_three"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/dashline"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

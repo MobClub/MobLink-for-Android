@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/moblink_demo_awake_bg"
+        android:layout_marginBottom="100dp"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/moblink_demo_Ll"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="185dp"
+            android:src="@drawable/moblink_demo_awake_icon"
+            android:layout_marginTop="100dp"
+            android:layout_height="121dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="27sp"
+            android:text="@string/moblink_demo_app_name"
+            android:paddingTop="2dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/moblink_demo_app_desc"
+            android:paddingTop="5dp"
+            android:textSize="15sp"
+            android:textColor="@color/moblink_demo_text"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/moblink_demo_userBtn"
+        android:layout_width="241dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_below="@+id/moblink_demo_Ll"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="立即使用"
+        android:background="@drawable/moblink_demo_btn_blue_round"
+        android:layout_height="50dp"/>
+
+</RelativeLayout>

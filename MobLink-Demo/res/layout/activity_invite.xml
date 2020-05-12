@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/demo_iv_back" />
+        
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/invite_user"
+            android:textColor="#000000"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:text="@string/share"
+            android:textColor="@color/blue"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d9d9d9" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="#fff7dd">
+        <TextView
+            android:id="@+id/tv_user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/btn_change_id"
+            android:layout_alignParentLeft="true"
+            android:text="@string/invite_user_title"
+            android:textColor="#a4a4a4"
+            android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/btn_change_id"
+            android:layout_width="49dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/change_id"
+            android:textSize="10dp"
+            android:textColor="@color/blue"
+            android:background="@drawable/demo_btn_change_id" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/demo_invite_reward"/>
+    <TextView
+        android:id="@+id/tv_invite_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:layout_gravity="center"
+        android:text="@string/get_reward"
+        android:textColor="#000000"
+        android:textSize="18dp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="39dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_invite_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/invite_user_content"
+            android:lineSpacingExtra="25dp"
+            android:textColor="#a4a4a4"
+            android:textSize="15dp" />
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/share_to_friends"
+            android:textColor="#ffffff"
+            android:background="@drawable/demo_btn_corner"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:id="@+id/moblink_demo_shareLl"
+              android:background="@color/moblink_demo_bg"
+              android:layout_width="match_parent"
+              android:paddingTop="50dp"
+              android:paddingRight="48dp"
+              android:paddingLeft="48dp"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="48dp"
+        android:layout_height="wrap_content">
+
+        <com.mob.tools.gui.AsyncImageView
+            android:id="@+id/moblink_demo_userIv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/moblink_demo_default_user"/>
+
+        <TextView
+            android:id="@+id/moblink_demo_usernameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/moblink_demo_userIv"
+            android:text="马皮皮"
+            android:textColor="@color/moblink_demo_text"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/moblink_demo_idTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/moblink_demo_usernameTv"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/moblink_demo_userIv"
+            android:text="ID:88888888"
+            android:textColor="@color/moblink_demo_gray"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_gravity="center"
+        android:background="#fff"
+        android:gravity="center"
+        android:layout_height="290dp">
+
+        <ImageView
+            android:id="@+id/moblink_demo_mine_qrcodeIv"
+            android:layout_width="250dp"
+            android:layout_height="250dp"/>
+
+    </LinearLayout>
+</LinearLayout>
