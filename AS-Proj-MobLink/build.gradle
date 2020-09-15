@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     ext {
         mavenMobUrl = "http://mvn.mob.com/android"
@@ -24,6 +23,11 @@ buildscript {
     }
 }
 
+mavenUrl = "http://mvn.mob.com/android"
+if (hasProperty("mavenUrl")) {
+    mavenUrl = getProperty("mavenUrl")
+}
+
 allprojects {
     repositories {
         jcenter()
@@ -33,7 +37,7 @@ allprojects {
         }
 
         maven {
-            url mavenMobUrl
+            url mavenUrl
         }
     }
 }
