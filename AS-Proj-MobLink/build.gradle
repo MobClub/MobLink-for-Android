@@ -20,12 +20,14 @@ buildscript {
             url mavenMobUrl
         }
         jcenter()
+        google()
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
         maven {
             url "http://maven.aliyun.com"
         }
