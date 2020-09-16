@@ -62,6 +62,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
@@ -77,7 +81,7 @@ dependencies {
             MobLink {
                 // 若使用经典版，需打开该设置，否则默认为专业版
 //                preferClassicalEdition true
-				version = "3.0.2"
+//				version = "3.0.2"
                 uriScheme "mlink://com.mob.moblink.demo"
                 appLinkHost "z.t4m.cn"
             }
