@@ -31,7 +31,6 @@ allprojects {
         maven {
             url "http://maven.aliyun.com"
         }
-
         maven {
             url mavenMobUrl
         }
