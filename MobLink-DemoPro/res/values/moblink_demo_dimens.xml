@@ -4,4 +4,36 @@
 	<dimen name="moblink_demo_height_title_bar">39dp</dimen>
 	<dimen name="moblink_demo_splash_title">27sp</dimen>
 	<dimen name="moblink_demo_splash_desc">15sp</dimen>
+
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="sdk_plus_12">12sp</dimen>
+    <dimen name="sdk_plus_14">14sp</dimen>
+    <dimen name="sdk_plus_16">16sp</dimen>
+    <dimen name="sdk_plus_18">18sp</dimen>
+    <dimen name="sdk_plus_24">24sp</dimen>
+    <dimen name="margin_385">385dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+
+    <dimen name="sdk_plus_item_height">35dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="btn_height">65dp</dimen>
+    <dimen name="btn_margin_top">70dp</dimen>
+    <dimen name="btn_margin">35dp</dimen>
+    <dimen name="btn_margin_left_right">30dp</dimen>
+    <dimen name="top_height">60dp</dimen>
+
+    <dimen name="margin_0_1">0.1dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
+    <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_45">45dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_3">3dp</dimen>
+    <dimen name="margin_128">128dp</dimen>
+
 </resources>

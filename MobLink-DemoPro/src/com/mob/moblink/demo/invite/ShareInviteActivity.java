@@ -118,8 +118,12 @@ public class ShareInviteActivity extends ShareableActivity  implements IRestoreV
 	}
 
 	private void captureView(final boolean isInit) {
+		String url = CommonUtils.getShareUrl() + CommonUtils.SHARE_INVITE_PATH + "?id=" + id;
+		if (!TextUtils.isEmpty(mobID)) {
+			url += "&mobid=" + mobID;
+		}
 		if (!TextUtils.isEmpty(capturePath)) {
-			ShareHelper.showShareReal(ShareInviteActivity.this, null, null, null, capturePath);
+			ShareHelper.showShareReal(ShareInviteActivity.this, null, null, url,mobID, capturePath);
 			return;
 		}
 		if (!isInit && captureIng) {
@@ -127,6 +131,7 @@ public class ShareInviteActivity extends ShareableActivity  implements IRestoreV
 			return;
 		}
 		captureIng = true;
+		final String finalUrl = url;
 		new Thread() {
 			public void run() {
 				if (isInit) { //第一次初始化，则延迟200秒，保证llContent.getHeight()不会为空
@@ -149,7 +154,8 @@ public class ShareInviteActivity extends ShareableActivity  implements IRestoreV
 							if (TextUtils.isEmpty(capturePath)) {
 								Toast.makeText(getApplicationContext(), R.string.txt_moblink_share_qrcode_failed_2, Toast.LENGTH_SHORT).show();
 							} else {
-								ShareHelper.showShareReal(ShareInviteActivity.this, null, null, null, capturePath);
+								ShareHelper.showShareReal(ShareInviteActivity.this, null,null,
+										finalUrl,mobID, capturePath);
 							}
 							return false;
 						}

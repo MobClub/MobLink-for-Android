@@ -2,11 +2,13 @@ package com.mob.moblink.demo.restore.view;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mob.moblink.Scene;
 import com.mob.moblink.demo.R;
 import com.mob.moblink.demo.ShareableActivity;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 public class NewsDetailActivity extends ShareableActivity implements IRestoreView {
 	private static final String TAG = "NewsDetailActivity";
 	private TextView tvShare;
-	private View llNewsDetail ;
+	private View llNewsDetail;
 	private TextView tvNewsTime;
 	private TextView tvNewsTitle;
 	private TextView tvNewsDetail;
@@ -76,10 +78,11 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-//			case R.id.tv_share: {
-//				//分享
-//				getMobIDToShare();
-//			} break;
+			case R.id.tv_share: {
+				//分享
+				getMobIDToShare();
+			}
+			break;
 			case R.id.rl_news_sug01: {
 				if (newsID == 0) {
 					newsID = 1;
@@ -87,7 +90,8 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 					newsID = 0;
 				}
 				setNewsDetail();
-			} break;
+			}
+			break;
 			case R.id.rl_news_sug02: {
 				if (newsID == 2) {
 					newsID = 1;
@@ -95,10 +99,12 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 					newsID = 2;
 				}
 				setNewsDetail();
-			} break;
+			}
+			break;
 			default: {
 				super.onClick(v);
-			} break;
+			}
+			break;
 		}
 	}
 
@@ -116,6 +122,7 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 				if (!TextUtils.isEmpty(value)) {
 					newsID = Integer.parseInt(String.valueOf(value));
 				}
+				setNewsDetail();
 			}
 		}
 	}
@@ -142,7 +149,7 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 	private void setNewsDetail() {
 		ArrayList<HashMap<String, Object>> data = CommonUtils.getNewsData(this);
 
-		HashMap<String, Object> news =  data.get(newsID);
+		HashMap<String, Object> news = data.get(newsID);
 		tvNewsTitle.setText((String) news.get("title"));
 		tvNewsDetail.setText((String) news.get("detail"));
 		tvNewsTime.setText((String) news.get("time"));
@@ -156,7 +163,7 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 		if (newsID == 0) {
 			otherNewsId = 1;
 		}
-		news =  data.get(otherNewsId);
+		news = data.get(otherNewsId);
 		icon.setImageResource((Integer) news.get("img"));
 		title.setText((String) news.get("title"));
 		comm.setText((String) news.get("time"));
@@ -169,12 +176,12 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 		if (newsID == 2) {
 			otherNewsId = 1;
 		}
-		news =  data.get(otherNewsId);
+		news = data.get(otherNewsId);
 		icon.setImageResource((Integer) news.get("img"));
 		title.setText((String) news.get("title"));
 		comm.setText((String) news.get("time"));
 	}
-	
+
 	private void getMobIDToShare() {
 		if (mobIdCache.containsKey(newsID)) {
 			mobID = String.valueOf(mobIdCache.get(newsID));
@@ -187,6 +194,9 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 		params.put("newsID", newsID);
 		params.put("id", SPHelper.getDemoUserId());
 		params.put("scene", CommonUtils.SCENE_NEWS);
+
+		Log.d("Moblink", "params===" + params);
+
 		restorePresenter.getMobId(CommonUtils.NEWS_PATH, params);
 	}
 
@@ -197,6 +207,8 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 		}
 		String title = tvNewsTitle.getText().toString();
 		String imgPath = CommonUtils.copyImgToSD(this, newsShareIcon, "news_" + newsID);
-		restorePresenter.share(this, title, title, shareUrl, imgPath);
+
+		Log.d("Moblink", "shareUrl==" + shareUrl);
+		restorePresenter.share(this, title, title, shareUrl, mobID, imgPath);
 	}
 }

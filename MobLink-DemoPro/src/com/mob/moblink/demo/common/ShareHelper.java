@@ -1,13 +1,20 @@
 package com.mob.moblink.demo.common;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mob.moblink.demo.QRcodeExampleActivity;
 import com.mob.moblink.demo.R;
+import com.mob.moblink.demo.util.CommonUtils;
 import com.mob.moblink.demo.util.ShareOrVCodeDialog;
 
 import cn.sharesdk.framework.Platform;
@@ -25,12 +32,12 @@ public class ShareHelper {
 	 * @param url
 	 * @param imgPath
 	 */
-	public static void showShare(final Context context, final String title, final String text, final String url, final String imgPath) {
+	public static void showShare(final Context context, final String title, final String text, final String url, final String mobID, final String imgPath) {
 		new ShareOrVCodeDialog(context).setOnItemClickListener(new ShareOrVCodeDialog.OnItemClickListener() {
 			public void onItemClick(int position) {
 				if (position == 1) {
 					//分享
-					showShareReal(context, title, text, url, imgPath);
+					showShareReal(context, title, text, url,mobID, imgPath);
 				} else if (position == 2) {
 					Intent intent = new Intent(context, QRcodeExampleActivity.class);
 					intent.putExtra("title", title);
@@ -43,13 +50,29 @@ public class ShareHelper {
 		}).show();
 	}
 
-	public static void showShareReal(Context context, String title, String text, String url, String imgPath) {
+	public static void showShareReal(final Context context, final String title, final String text, final String url, final String mobID, final String imgPath) {
 		OnekeyShare oks = new OnekeyShare();
 		oks.setTitle(title);
 		oks.setText(text);
 		oks.setUrl(url);
 		oks.setTitleUrl(url);
 		oks.setImagePath(imgPath);
+		Bitmap logo = BitmapFactory.decodeResource(context.getResources(),R.drawable.ssdk_oks_classic_duplicate);
+		oks.setCustomerLogo(logo, context.getString(R.string.copy_url), new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (android.os.Build.VERSION.SDK_INT >= 11) {
+					ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+					ClipData clipData = ClipData.newPlainText("", url);
+					clipboardManager.setPrimaryClip(clipData);
+				} else{
+					android.text.ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+					clipboardManager.setText(url);
+				}
+				Toast.makeText(context,R.string.copy_url_to_clipboard,Toast.LENGTH_LONG).show();
+			}
+		});
 		oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
 			public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
 				if ("SinaWeibo".endsWith(platform.getName())
@@ -61,12 +84,17 @@ public class ShareHelper {
 					paramsToShare.setTitleUrl(null);
 				} else if ("ShortMessage".endsWith(platform.getName())) {
 					paramsToShare.setImagePath(null);
-					String value = paramsToShare.getText();
-					value += "\n";
-					String url = paramsToShare.getUrl();
-					value += url;
-					paramsToShare.setText(value);
+					String url =  context.getString(R.string.share_message_content,CommonUtils.getAppLinkShareUrl()+"/"+mobID);
+					paramsToShare.setText(url);
 
+				}else if ("QQ".endsWith(platform.getName())){
+					//QQ分享bu
+					if(!TextUtils.isEmpty(imgPath) && (TextUtils.isEmpty(title) ||TextUtils.isEmpty(text)||TextUtils.isEmpty(url))){
+						paramsToShare.setTitle(null);
+						paramsToShare.setText(null);
+						paramsToShare.setUrl(null);
+						paramsToShare.setTitleUrl(null);
+					}
 				}
 			}
 		});
