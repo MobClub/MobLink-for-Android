@@ -73,8 +73,6 @@ dependencies {
     } else {
         MobSDK {
             MobLink {
-                // 若使用经典版，需打开该设置，否则默认为专业版
-//                preferClassicalEdition true
 				version = "3.0.2"
                 uriScheme "mlink://com.mob.moblink.demo"
                 appLinkHost "z.t4m.cn"
