@@ -71,25 +71,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
-    //noinspection DuplicatePlatformClasses
     implementation 'org.apache.httpcomponents:httpclient:4.5.6'
-//    implementation files('libs/obfuscate.jar')
 
     Project p = findProject(':MobLink')
     if (null != p) {
-//        releaseCompile project(path: ':MobLink', configuration: 'release')
-//        debugCompile project(path: ':MobLink', configuration: 'debug')
         compile project(':MobLink')
-//        compile(name:'MobLink-3.4.2', ext:'aar')
-//        implementation files('libs/MobLink-3.4.2.aar')
     } else {
         MobSDK {
-//            gpp true
-//            fp true
             MobLink {
-                // 若使用经典版，需打开该设置，否则默认为专业版
-//                preferClassicalEdition true
-//				version = "3.0.1"
                 uriScheme "mlink://com.mob.moblink.demo"
                 appLinkHost "z.t4m.cn"
             }
@@ -103,18 +92,8 @@ dependencies {
     androidTestImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 
-configurations.all {
-//    exclude group: 'com.mob', module: 'MobCommons'
-//    exclude group: 'com.mob', module: 'MobTools'
-//    exclude group: 'com.mob', module: 'MobGUI'
-}
-
 MobSDK {
-    gpp true
-//    fp true
     ShareSDK {
-//        gui true
-//        version '3.8.3'
         devInfo {
             QQ {
                 sortId 1
