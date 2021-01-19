@@ -73,19 +73,12 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
     //noinspection DuplicatePlatformClasses
     implementation 'org.apache.httpcomponents:httpclient:4.5.6'
-//    implementation files('libs/obfuscate.jar')
 
     Project p = findProject(':MobLink')
     if (null != p) {
-//        releaseCompile project(path: ':MobLink', configuration: 'release')
-//        debugCompile project(path: ':MobLink', configuration: 'debug')
         compile project(':MobLink')
-//        compile(name:'MobLink-3.4.2', ext:'aar')
-//        implementation files('libs/MobLink-3.4.2.aar')
     } else {
         MobSDK {
-//            gpp true
-//            fp true
             MobLink {
                 // 若使用经典版，需打开该设置，否则默认为专业版
 //                preferClassicalEdition true
