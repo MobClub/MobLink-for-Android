@@ -1,32 +1,18 @@
 package com.mob.moblink.demo;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mdc.at.alcfx.AlCFx;
 import com.mob.MobSDK;
 import com.mob.moblink.MobLink;
-import com.mob.moblink.demo.common.PermissionHelper;
 import com.mob.moblink.demo.homepage.HomePage;
 import com.mob.moblink.demo.profile.MinePage;
 import com.mob.moblink.demo.util.PrivacyDialog;
 import com.mob.moblink.demo.util.statusbar.StatusBarCompat;
-import com.mob.tools.utils.DeviceHelper;
-
-import java.security.Permission;
-import java.util.HashMap;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -63,17 +49,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		} else {
 			initView();
 		}
-
-		if (Build.VERSION.SDK_INT >= 23) {
-			requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10);
-		}
-
-		if (!PermissionHelper.hasPermissionInManifest(getApplicationContext(), Manifest.permission.INTERNET)) {
-			Log.i("MainActivity", " current process has not android.permission.INTERNET");
-		}
-
-		final HashMap map = AlCFx.start(this, "moba6b6c6d6", "111111111");
-		Log.d("Moblink", "map===" + map.toString());
 	}
 
 	@Override

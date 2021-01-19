@@ -21,8 +21,6 @@ public class WelcomeActivity extends Activity implements SceneRestorable {
     public void onReturnSceneData(Scene scene) {
         if (scene != null && scene.params != null) {
             final String url = (String) scene.params.get("startPage");
-            Log.d("Moblink", "url==" + url);
-
             Intent intent_1 = new Intent(WelcomeActivity.this, SplashActivity.class);
             startActivity(intent_1);
 
