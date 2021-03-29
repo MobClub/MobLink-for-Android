@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mob.moblink.MobLink;
+import com.mob.moblink.demo.MainActivity;
 import com.mob.moblink.demo.QRcodeExampleActivity;
 import com.mob.moblink.demo.R;
 import com.mob.moblink.demo.invite.LocalInviteActivity;
@@ -58,6 +59,7 @@ public class CommonUtils {
 	public static final String WAKEUP_PATH = "/demo";
 	public static final String LOCAL_INVITE_PATH = "/invite/local";
 	public static final String SHARE_INVITE_PATH = "/invite/share";
+	public static final String DEFAULT_PATH = "/";
 
 	public static final int SCENE_NEWS = 2001;
 	public static final int SCENE_NOVEL = 2002;
@@ -76,6 +78,7 @@ public class CommonUtils {
 		PATH_MAP_LOCAL.put(WAKEUP_PATH, SplashActivity.class);
 		PATH_MAP_LOCAL.put(LOCAL_INVITE_PATH, LocalInviteActivity.class);
 		PATH_MAP_LOCAL.put(SHARE_INVITE_PATH, ShareInviteActivity.class);
+		PATH_MAP_LOCAL.put(DEFAULT_PATH, MainActivity.class);
 	}
 	
 	/**
@@ -311,9 +314,12 @@ public class CommonUtils {
 		String shareUrl;
 		// 3.0.0短链版本
 		if (DEBUGGABLE) {
-			shareUrl = "http://10.18.97.58:2122";
+			shareUrl = "http://10.18.97.58:2122/pro";
 		} else {
-			shareUrl = "http://f.moblink.mob.com/pro";
+		 	shareUrl = "http://f.moblink.mob.com/pro";
+
+            //测试
+            //shareUrl = "http://moblinks.fe.beta.mob.com/pro";
 		}
 		return shareUrl;
 	}
@@ -322,9 +328,9 @@ public class CommonUtils {
 		String shareUrl;
 		// 3.0.0短链版本
 		if (DEBUGGABLE) {
-			shareUrl = "http://70r9.link.mob.com";
+			shareUrl = "70r9.link.mob.com";
 		} else {
-			shareUrl = "http://z.t4m.cn";
+			shareUrl = "z.t4m.cn";
 		}
 		return shareUrl;
 	}
@@ -333,7 +339,7 @@ public class CommonUtils {
 		String demoUrl;
 		//3.0.2 demo改版接口
 		if (DEBUGGABLE) {
-			demoUrl = "http://172.25.49.63:8999";
+			demoUrl = "http://10.21.141.61:8999";
 		} else {
 			demoUrl = "http://61.174.10.198:8999";
 		}
@@ -364,8 +370,7 @@ public class CommonUtils {
 					}
 				}
 			}
-		} catch (Throwable t) {
-			Log.d("CommonUtils", "checkHttpRequestUrl encountered problems", t);
+		} catch (Throwable t) { Log.d("CommonUtils", "checkHttpRequestUrl encountered problems", t);
 		}
 
 		return requestUrl;

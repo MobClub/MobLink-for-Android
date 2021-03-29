@@ -13,14 +13,13 @@
     <Button
         android:id="@+id/moblink_demo_splash_skip"
         android:layout_width="65dp"
-        android:text="@string/moblink_demo_splash_skip"
-        android:textSize="12sp"
+        android:layout_height="28dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="16dp"
         android:layout_marginRight="15dp"
-        android:textColor="@color/moblink_demo_skip_blue"
         android:background="@drawable/moblink_demo_btn_blue_stroke_round"
-        android:layout_height="28dp"/>
+        android:text="@string/moblink_demo_splash_skip"
+        android:textColor="@color/moblink_demo_skip_blue"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/moblink_demo_splash_indicator"

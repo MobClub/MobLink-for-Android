@@ -1,8 +1,8 @@
 package com.mob.moblink.demo;
 
 import android.app.Activity;
-
 import com.mob.MobApplication;
+import com.mob.MobSDK;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.RestoreSceneListener;
 import com.mob.moblink.Scene;
@@ -10,6 +10,7 @@ import com.mob.moblink.demo.splash.SplashActivity;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.Map;
+import com.squareup.leakcanary.LeakCanary;
 
 
 public class DemoApplication extends MobApplication {
@@ -18,8 +19,15 @@ public class DemoApplication extends MobApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		MobLink.skipRestoreSceneFromWx(SplashActivity.class);
+		//MobLink.skipRestoreSceneFromWx(SplashActivity.class);
 		MobLink.setRestoreSceneListener(new SceneListener());
+
+		if (LeakCanary.isInAnalyzerProcess(this)) {
+			// This process is dedicated to LeakCanary for heap analysis.
+			// You should ®not init your app in this process.
+			return;
+		}
+		LeakCanary.install(this);
 	}
 
 	class SceneListener extends Object implements RestoreSceneListener {

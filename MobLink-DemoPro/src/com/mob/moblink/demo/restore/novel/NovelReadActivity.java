@@ -13,13 +13,14 @@ import com.mob.moblink.demo.common.ShareHelper;
 import com.mob.moblink.demo.restore.presenter.RestorePresenter;
 import com.mob.moblink.demo.restore.view.IRestoreView;
 import com.mob.moblink.demo.util.CommonUtils;
+import com.mob.moblink.demo.util.MLog;
 import com.mob.moblink.demo.util.SPHelper;
 import com.mob.tools.utils.ResHelper;
 
 import java.util.HashMap;
 
 public class NovelReadActivity extends ShareableActivity implements IRestoreView {
-
+	private static final String TAG = "NovelReadActivity";
 	private TextView novelTv;
 	private NovelScrollView novelSv;
 	private int novelId;
@@ -72,6 +73,18 @@ public class NovelReadActivity extends ShareableActivity implements IRestoreView
 				readPercent = Integer.parseInt(percent) / 100f;
 			}
 
+			MLog.d(TAG, "novelId = " + novelId + ", readPercent = " + readPercent);
+			if(centerTv != null && novelTv != null && novelSv != null ) {
+				centerTv.setText(getTitleId());
+				novelTv.setText(Html.fromHtml(getString(ResHelper.getStringRes(this, "moblink_demo_novel_" + novelId))));
+				novelSv.post(new Runnable() {
+					@Override
+					public void run() {
+						novelSv.scrollTo(0, (int) (novelTv.getHeight() * readPercent));
+					}
+				});
+			}
+
 		}
 	}
 
@@ -89,7 +102,7 @@ public class NovelReadActivity extends ShareableActivity implements IRestoreView
 			}
 		}
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("novelId", novelId);
+		params.put("novel", novelId);
 		params.put("id", SPHelper.getDemoUserId());
 		params.put("scene", CommonUtils.SCENE_NOVEL);
 		restorePresenter.getMobId(CommonUtils.NOVEL_PATH, params);
@@ -128,6 +141,6 @@ public class NovelReadActivity extends ShareableActivity implements IRestoreView
 		if (!TextUtils.isEmpty(mobID)) {
 			shareUrl += "&mobid=" + mobID;
 		}
-		ShareHelper.showShareReal(this, title, text, shareUrl, imgPath);
+		ShareHelper.showShareReal(this, title, text, shareUrl,mobID, imgPath);
 	}
 }
