@@ -56,7 +56,7 @@ public class DemoPage implements View.OnClickListener, IRestoreView {
 				String title = mainActivity.getString(R.string.show_share_titel);
 				String text = mainActivity.getString(R.string.share_text);
 				String imgPath = CommonUtils.copyImgToSD(mainActivity, R.drawable.demo_share_moblink, "moblink");
-				restorePresenter.share(mainActivity, title, text, shareUrl, imgPath);
+				restorePresenter.share(mainActivity, title, text, shareUrl,mobID, imgPath);
 			} break;
 			case R.id.btn_share_to_wxmini: {
 				if (TextUtils.isEmpty(mobID)) {

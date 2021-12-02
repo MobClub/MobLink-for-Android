@@ -1,17 +1,17 @@
 package com.mob.moblink.demo;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mob.MobSDK;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.demo.homepage.HomePage;
 import com.mob.moblink.demo.profile.MinePage;
+import com.mob.moblink.demo.util.PrivacyDialog;
 import com.mob.moblink.demo.util.statusbar.StatusBarCompat;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -32,19 +32,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		if (!MobSDK.isMob()) {
+			Intent intent = new Intent();
+			intent.setClass(this, PrivacyDialog.class);
+			startActivity(intent);
+		}
+
 		StatusBarCompat.setStatusBarColor(this, Color.WHITE, true);
 		if (null == sFirstInstance) {
 			sFirstInstance = this;
 			initView();
 		} else if (this != sFirstInstance) {
 			// 防止微信跳转过来，多个MainActivity界面(是singletop)
-			finish();
+//			finish();
 		} else {
 			initView();
-		}
-
-		if (Build.VERSION.SDK_INT >= 23) {
-			requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10);
 		}
 	}
 
@@ -66,9 +69,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.ll_main:
-			case R.id.ll_my:{
+			case R.id.ll_my: {
 				switchTab(v.getId());
-			} break;
+			}
+			break;
 		}
 	}
 
@@ -119,10 +123,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		}
 	}
 
-	public String getVersion(){
+	public String getVersion() {
 		int version = MobLink.getSdkVersion();
 		StringBuilder stringBuilder = new StringBuilder();
-		while(version>10) {
+		while (version > 10) {
 			stringBuilder.insert(0, (version % 100));
 			stringBuilder.insert(0, ".");
 			version = version / 100;

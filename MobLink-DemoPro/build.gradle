@@ -15,6 +15,9 @@ android {
         versionName findVersionName()
     }
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 
     signingConfigs {
         config {
@@ -56,6 +59,7 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+        disable 'MissingTranslation'
     }
 
     compileOptions {
@@ -65,32 +69,41 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
-    compile 'org.apache.httpcomponents:httpclient:4.5.6'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.6'
+
     Project p = findProject(':MobLink')
     if (null != p) {
-        releaseCompile project(path: ':MobLink', configuration: 'release')
-        debugCompile project(path: ':MobLink', configuration: 'debug')
+        compile project(':MobLink')
     } else {
         MobSDK {
             MobLink {
-                // 若使用经典版，需打开该设置，否则默认为专业版
-//                preferClassicalEdition true
-				version = "3.0.2"
                 uriScheme "mlink://com.mob.moblink.demo"
                 appLinkHost "z.t4m.cn"
             }
         }
     }
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.3.2'
-    compile 'org.jetbrains:annotations-java5:15.0'
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.robolectric:robolectric:3.3.2'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    androidTestImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
+
+
+// 请勿修改此块，统一打包功能会用到
+try {
+    String tmpParams = getProperty("custom_params")
+    String[] params = tmpParams.split(",")
+    params.each {item->
+        MobSDK.spEdition(item)
+    }
+} catch(Throwable t) {}
 
 MobSDK {
     ShareSDK {
-        gui true
         devInfo {
             QQ {
                 sortId 1
@@ -99,12 +112,15 @@ MobSDK {
                 shareByAppClient true
                 enable true
             }
-            QZone {
+            SinaWeibo {
                 sortId 2
-                appId "1105914667"
-                appKey "csEzGDYWmrRRnmCD"
+                appKey "474962333"
+                appSecret "26522c6ed236057fd4ff5005449f98e9"
+                callbackUri "http://www.sharesdk.cn"
+                shareByAppClient true
                 enable true
             }
+
             Wechat {
                 sortId 3
                 appId "wx01634d672597c03c"
@@ -123,14 +139,13 @@ MobSDK {
                 bypassApproval false
                 enable true
             }
-            SinaWeibo {
+            Twitter {
                 sortId 5
-                appKey "474962333"
-                appSecret "26522c6ed236057fd4ff5005449f98e9"
-                callbackUri "http://www.sharesdk.cn"
-                shareByAppClient true
+                appKey "viOnkeLpHBKs6KXV7MPpeGyzE"
+                appSecret "NJEglQUy2rqZ9Io9FcAU9p17omFqbORknUpRrCDOK46aAbIiey"
                 enable true
             }
+
             Facebook {
                 sortId 6
                 appKey "148252749452354"
@@ -140,12 +155,14 @@ MobSDK {
                 enable true
             }
 
-            Twitter {
+            QZone {
                 sortId 7
-                appKey "viOnkeLpHBKs6KXV7MPpeGyzE"
-                appSecret "NJEglQUy2rqZ9Io9FcAU9p17omFqbORknUpRrCDOK46aAbIiey"
-                enable true
+                appId "1105914667"
+                appKey "csEzGDYWmrRRnmCD"
+                enable false
             }
+
+
             WechatFavorite {
                 sortId 8
                 appId "wx01634d672597c03c"
@@ -184,7 +201,7 @@ MobSDK {
 
             ShortMessage {
                 sortId 13
-                enable false
+                enable true
             }
 
             Douban {

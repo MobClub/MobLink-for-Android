@@ -2,7 +2,7 @@
 //
 ext.findBuildTools = {
     def localProperties = new File(rootProject.projectDir, "local.properties")
-    String buildTools = "25.0.2";
+    String buildTools = "27.0.3";
     if (localProperties.exists()) {
         def properties = new Properties()
         localProperties.withInputStream {
@@ -53,7 +53,7 @@ ext.findProguardFile = {
 }
 
 ext.findTargetSdk = {
-    int targetSdk = 8;
+    int targetSdk = 29
     def manifest = findManifest()
     String temp = manifest.getAt("uses-sdk").getProperty('@android:targetSdkVersion').toString();
     if (null != temp && temp.length() > 0) {
@@ -64,7 +64,7 @@ ext.findTargetSdk = {
 }
 
 ext.findMinSdk = {
-    int minSdk = 8;
+    int minSdk = 16
     def manifest = findManifest()
     String temp = manifest.getAt("uses-sdk").getProperty('@android:minSdkVersion').toString();
     if (null != temp && temp.length() > 0) {

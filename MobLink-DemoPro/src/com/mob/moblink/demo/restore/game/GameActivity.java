@@ -239,6 +239,6 @@ public class GameActivity extends ShareableActivity implements IRestoreView {
 		if (!TextUtils.isEmpty(mobID)) {
 			shareUrl += "&mobid=" + mobID;
 		}
-		ShareHelper.showShareReal(this, title, text, shareUrl, imgPath);
+		ShareHelper.showShareReal(this, title, text, shareUrl, mobID,imgPath);
 	}
 }

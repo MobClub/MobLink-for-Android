@@ -1,12 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext {
-        mavenMobUrl = "http://mvn.mob.com/android"
-//        mavenMobUrl = "http://10.18.97.47:8080/jenkins/job/iMaven/ws/android"
+    String urlStr = "http://mvn.mob.com/android"
+    if (hasProperty("mavenUrl")) {
+        urlStr = getProperty("mavenUrl")
     }
+    println "mavenUrl: ${urlStr}, ${hasProperty("mavenUrl")}"
+    ext {
+        mavenUrl = urlStr
+    }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath 'com.mob.sdk:MobSDK:+'
         classpath 'com.mob.eclipsemodule:EclipseModule:+'
     }
@@ -17,21 +21,22 @@ buildscript {
             url "http://maven.aliyun.com"
         }
         maven {
-            url mavenMobUrl
+            url mavenUrl
         }
         jcenter()
+        google()
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
         maven {
             url "http://maven.aliyun.com"
         }
-
         maven {
-            url mavenMobUrl
+            url mavenUrl
         }
     }
 }
