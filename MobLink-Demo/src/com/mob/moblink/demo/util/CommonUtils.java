@@ -355,7 +355,7 @@ public class CommonUtils {
 		String shareUrl;
 		// 3.0.0短链版本
 		if (DEBUGGABLE) {
-			shareUrl = "http://10.18.97.58:2122/demoPro";
+			shareUrl = "http://f.moblink.mob.com/demoPro";
 		} else {
 			shareUrl = "http://f.moblink.mob.com/demoPro";
 		}
