@@ -7,7 +7,7 @@
 
     <uses-sdk
         android:targetSdkVersion="28"
-        tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare" />
+        tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare,com.sina.weibo" />
 
     <supports-screens
         android:anyDensity="true"
