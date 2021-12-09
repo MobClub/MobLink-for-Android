@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId findApplicationId()
-        minSdkVersion findMinSdk()
+        minSdkVersion 14
         targetSdkVersion findTargetSdk()
         versionCode findVersionCode()
         versionName findVersionName()
