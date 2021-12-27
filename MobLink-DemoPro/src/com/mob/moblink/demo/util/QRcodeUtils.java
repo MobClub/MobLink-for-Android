@@ -86,6 +86,7 @@ public class QRcodeUtils {
 			canvas.drawBitmap(logo, (srcWidth - logoWidth) / 2, (srcHeight - logoHeight) / 2, null);
 
 //			canvas.save(Canvas.ALL_SAVE_FLAG);
+			canvas.save();
 			canvas.restore();
 		} catch (Exception e) {
 			bitmap = null;

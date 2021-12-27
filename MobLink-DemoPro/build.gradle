@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId findApplicationId()
-        minSdkVersion 14
+        minSdkVersion findMinSdk()
         targetSdkVersion findTargetSdk()
         versionCode findVersionCode()
         versionName findVersionName()
@@ -69,41 +69,22 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
-    implementation 'org.apache.httpcomponents:httpclient:4.5.6'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
+    compile 'org.apache.httpcomponents:httpclient:4.5.6'
 
-    Project p = findProject(':MobLink')
-    if (null != p) {
-        compile project(':MobLink')
-    } else {
-        MobSDK {
-            MobLink {
-                uriScheme "mlink://com.mob.moblink.demo"
-                appLinkHost "z.t4m.cn"
-            }
-        }
-    }
-    androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'org.robolectric:robolectric:3.3.2'
-    implementation 'org.jetbrains:annotations-java5:15.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    androidTestImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+    compile 'org.jetbrains:annotations-java5:15.0'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
-
-
-// 请勿修改此块，统一打包功能会用到
-try {
-    String tmpParams = getProperty("custom_params")
-    String[] params = tmpParams.split(",")
-    params.each {item->
-        MobSDK.spEdition(item)
-    }
-} catch(Throwable t) {}
 
 MobSDK {
     ShareSDK {
+        gui true
         devInfo {
             QQ {
                 sortId 1
@@ -378,6 +359,13 @@ MobSDK {
                 enable false
             }
         }
+    }
+    MobLink {
+        // 若使用经典版，需打开该设置，否则默认为专业版
+//                preferClassicalEdition true
+//				version = "3.0.1"
+        uriScheme "mlink://com.mob.moblink.demo"
+        appLinkHost "z.t4m.cn"
     }
 }
 

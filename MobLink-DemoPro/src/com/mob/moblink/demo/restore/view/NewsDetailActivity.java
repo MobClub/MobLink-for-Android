@@ -78,11 +78,10 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.tv_share: {
-				//分享
-				getMobIDToShare();
-			}
-			break;
+//			case R.id.tv_share: {
+//				//分享
+//				getMobIDToShare();
+//			} break;
 			case R.id.rl_news_sug01: {
 				if (newsID == 0) {
 					newsID = 1;
@@ -176,7 +175,7 @@ public class NewsDetailActivity extends ShareableActivity implements IRestoreVie
 		if (newsID == 2) {
 			otherNewsId = 1;
 		}
-		news = data.get(otherNewsId);
+		news =  data.get(otherNewsId);
 		icon.setImageResource((Integer) news.get("img"));
 		title.setText((String) news.get("title"));
 		comm.setText((String) news.get("time"));

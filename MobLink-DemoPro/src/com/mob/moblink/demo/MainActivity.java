@@ -39,17 +39,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			startActivity(intent);
 		}
 
-		StatusBarCompat.setStatusBarColor(this, Color.WHITE, true);
-		if (null == sFirstInstance) {
-			sFirstInstance = this;
-			initView();
-		} else if (this != sFirstInstance) {
-			// 防止微信跳转过来，多个MainActivity界面(是singletop)
-//			finish();
-		} else {
-			initView();
-		}
-	}
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE, true);
+        if (null == sFirstInstance) {
+            sFirstInstance = this;
+            initView();
+        } else if (this != sFirstInstance) {
+            // 防止微信跳转过来，多个MainActivity界面(是singletop)
+            finish();
+        } else {
+            initView();
+        }
+    }
 
 	@Override
 	protected void onResume() {
