@@ -48,16 +48,6 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:scheme="about"/>
-                <data android:scheme="javascript"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".restore.view.NewsActivity"
@@ -96,10 +86,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="mlink" />
+                    android:host="com.mob.moblink.demo"
+                    android:scheme="mlink"/>
             </intent-filter>
-
-<!--            android:host="com.mob.moblink.demo"-->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -115,42 +104,89 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="com.mob.MobProvider"
-            android:exported="false"
-            android:multiprocess="true"
-            android:authorities="com.mob.moblink.demo.com.mob.MobProvider" />
-
         <activity
             android:name="WelcomeActivity"
             android:exported="true"
             android:label="跳转中间页"
             android:theme="@style/tran">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.VIEW" />
+
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="duapplauncher" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.VIEW" />
+
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="dewuapp" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.oppoaction" />
+
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".awake.AwakeActivity"></activity>
-        <activity android:name=".restore.RestoreActivity"></activity>
-        <activity android:name=".invite.InviteActivity"></activity>
-        <activity android:name=".match.MatchActivity"></activity>
-        <activity android:name=".analyze.AnalyzeActivity"></activity>
-        <activity android:name=".invite.LocalInviteActivity"></activity>
-        <activity android:name=".invite.ShareInviteActivity"></activity>
-        <activity android:name=".profile.FriendActivity"></activity>
-        <activity android:name=".restore.novel.NovelReadActivity"></activity>
-        <activity android:name=".restore.game.GameActivity"></activity>
-        <activity android:name=".analyze.AnalyzeDetailActivity"></activity>
-        <activity android:name=".restore.novel.NovelListActivity"></activity>
+        <activity android:name=".awake.AwakeActivity">
+        </activity>
+        <activity android:name=".restore.RestoreActivity">
+        </activity>
+        <activity android:name=".invite.InviteActivity">
+        </activity>
+        <activity android:name=".match.MatchActivity">
+        </activity>
+        <activity android:name=".analyze.AnalyzeActivity">
+        </activity>
+        <activity android:name=".invite.LocalInviteActivity">
+        </activity>
+        <activity android:name=".invite.ShareInviteActivity">
+        </activity>
+        <activity android:name=".profile.FriendActivity">
+        </activity>
+        <activity android:name=".restore.novel.NovelReadActivity">
+        </activity>
+        <activity android:name=".restore.game.GameActivity">
+        </activity>
+        <activity android:name=".analyze.AnalyzeDetailActivity">
+        </activity>
+        <activity android:name=".restore.novel.NovelListActivity">
+        </activity>
+        <activity android:name="com.mob.moblink.demo.util.PrivacyDialog">
+        </activity>
     </application>
 
 </manifest>
