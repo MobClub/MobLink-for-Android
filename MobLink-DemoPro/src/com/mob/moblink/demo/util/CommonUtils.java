@@ -311,39 +311,15 @@ public class CommonUtils {
 	}
 
 	public static String getShareUrl() {
-		String shareUrl;
-		// 3.0.0短链版本
-		if (DEBUGGABLE) {
-			shareUrl = "http://10.18.97.58:2122/pro";
-		} else {
-		 	shareUrl = "http://f.moblink.mob.com/pro";
-
-            //测试
-            //shareUrl = "http://moblinks.fe.beta.mob.com/pro";
-		}
-		return shareUrl;
+		return "http://f.moblink.mob.com/pro";
 	}
 
 	public static String getAppLinkShareUrl() {
-		String shareUrl;
-		// 3.0.0短链版本
-		if (DEBUGGABLE) {
-			shareUrl = "70r9.link.mob.com";
-		} else {
-			shareUrl = "z.t4m.cn";
-		}
-		return shareUrl;
+		return "z.t4m.cn";
 	}
 
 	public static String getDemoUrl() {
-		String demoUrl;
-		//3.0.2 demo改版接口
-		if (DEBUGGABLE) {
-			demoUrl = "http://10.21.141.61:8999";
-		} else {
-			demoUrl = "http://61.174.10.198:8999";
-		}
-		return demoUrl;
+		return "http://61.174.10.198:8999";
 	}
 
 	public static String checkHttpRequestUrl(String requestUrl) {
