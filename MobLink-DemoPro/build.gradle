@@ -4,13 +4,12 @@ apply plugin: 'com.mob.sdk'
 
 android {
     useLibrary 'org.apache.http.legacy'
-    compileSdkVersion findCompileSdkVersion()
-    buildToolsVersion findBuildTools()
-
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
     defaultConfig {
         applicationId findApplicationId()
-        minSdkVersion findMinSdk()
-        targetSdkVersion findTargetSdk()
+        minSdkVersion 16
+        targetSdkVersion 30
         versionCode findVersionCode()
         versionName findVersionName()
     }

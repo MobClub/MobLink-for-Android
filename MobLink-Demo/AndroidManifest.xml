@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionCode="30002" android:versionName="3.0.2" package="com.mob.moblink.demo">
 
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="30" tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare,com.sina.weibo"/>
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="30" tools:overrideLibrary="com.mob.moblink,cn.sharesdk,cn.sharesdk.onekeyshare,com.sina.weibo"/>
 
     <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true"/>
 
