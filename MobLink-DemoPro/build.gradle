@@ -5,7 +5,7 @@ apply plugin: 'com.mob.sdk'
 android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion findCompileSdkVersion()
-    buildToolsVersion '30.0.2'
+    buildToolsVersion findBuildTools()
 
     defaultConfig {
         applicationId findApplicationId()
