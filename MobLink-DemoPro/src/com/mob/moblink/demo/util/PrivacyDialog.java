@@ -73,6 +73,7 @@ public class PrivacyDialog extends Activity implements View.OnClickListener{
             case R.id.cancel: {
                 submitPrivacyGrantResult(false);
                 finish();
+                System.exit(0);
             } break;
             default:
                 break;
