@@ -68,8 +68,8 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
     Project p = findProject(':MobLink')
     if (null != p) {
-        releaseCompile project(path: ':MobLink', configuration: 'release')
-        debugCompile project(path: ':MobLink', configuration: 'debug')
+        releaseimplementation project(path: ':MobLink', configuration: 'release')
+        debugimplementation project(path: ':MobLink', configuration: 'debug')
     } else {
         MobSDK {
             MobLink {
@@ -79,8 +79,8 @@ dependencies {
             }
         }
     }
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.3.2'
+    implementation 'junit:junit:4.12'
+    implementation 'org.robolectric:robolectric:3.3.2'
 }
 
 MobSDK {
