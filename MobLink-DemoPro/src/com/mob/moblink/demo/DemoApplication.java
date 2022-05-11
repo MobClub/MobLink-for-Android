@@ -10,7 +10,7 @@ import com.mob.moblink.demo.splash.SplashActivity;
 import com.mob.moblink.demo.util.CommonUtils;
 
 import java.util.Map;
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 
 
 public class DemoApplication extends MobApplication {
@@ -22,12 +22,12 @@ public class DemoApplication extends MobApplication {
 		//MobLink.skipRestoreSceneFromWx(SplashActivity.class);
 		MobLink.setRestoreSceneListener(new SceneListener());
 
-		if (LeakCanary.isInAnalyzerProcess(this)) {
-			// This process is dedicated to LeakCanary for heap analysis.
-			// You should ®not init your app in this process.
-			return;
-		}
-		LeakCanary.install(this);
+//		if (LeakCanary.isInAnalyzerProcess(this)) {
+//			// This process is dedicated to LeakCanary for heap analysis.
+//			// You should ®not init your app in this process.
+//			return;
+//		}
+//		LeakCanary.install(this);
 	}
 
 	class SceneListener extends Object implements RestoreSceneListener {

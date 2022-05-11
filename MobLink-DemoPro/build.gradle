@@ -88,8 +88,8 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
     implementation 'org.apache.httpcomponents:httpclient:4.5.6'
 
-    implementation 'junit:junit:4.13.2'
-    implementation 'org.robolectric:robolectric:3.3.2'
+//    implementation 'junit:junit:4.13.2'
+//    implementation 'org.robolectric:robolectric:3.3.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
 
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
