@@ -64,8 +64,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
     Project p = findProject(':MobLink')
     if (null != p) {
         releaseCompile project(path: ':MobLink', configuration: 'release')
