@@ -84,13 +84,13 @@ android {
 
 dependencies {
 //    implementation 'com.mob.dewu:MobSDKDW:1.0.8'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
-    compile 'org.apache.httpcomponents:httpclient:4.5.6'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.6'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.3.2'
-    compile 'org.jetbrains:annotations-java5:15.0'
+    implementation 'junit:junit:4.13.2'
+    implementation 'org.robolectric:robolectric:3.3.2'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
