@@ -92,9 +92,9 @@ dependencies {
     implementation 'org.robolectric:robolectric:3.3.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 configurations.all {
 //    exclude group: 'com.mob' ,module:'MobCommonsMCFP'
