@@ -101,6 +101,9 @@ configurations.all {
 //    exclude group: 'com.mob' ,module:'MobGuardMCFP'
 //    exclude group: 'com.mob' ,module:'MobToolsMCFP'
 //    exclude group: 'com.mob' ,module:'MobGUI'
+//    exclude group: 'com.mob' ,module:'MobCoreULT'
+//    exclude group: 'com.mob' ,module:'MobSupportV1'
+//    exclude group: 'com.mob' ,module:'MobGUIULT'
 }
 
 MobSDK {
