@@ -74,7 +74,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:exported="false"
+            android:exported="true"
             android:name="com.mob.moblink.MobLinkActivity"
 
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">

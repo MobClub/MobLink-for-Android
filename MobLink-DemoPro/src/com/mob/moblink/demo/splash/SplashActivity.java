@@ -23,7 +23,7 @@ import com.mob.moblink.demo.DemoApplication;
 import com.mob.moblink.demo.MainActivity;
 import com.mob.moblink.demo.R;
 import com.mob.moblink.demo.util.PrefUtils;
-import com.mob.moblink.demo.util.PrivacyDialog;
+import com.mob.moblink.demo.util.PrivacyDialogUtils;
 import com.mob.moblink.demo.util.SPHelper;
 import com.mob.moblink.demo.util.SpConstant;
 import com.mob.moblink.demo.util.statusbar.StatusBarCompat;
@@ -66,63 +66,9 @@ public class SplashActivity extends Activity implements ISplashView, View.OnClic
 		//首次进入弹出隐私协议
 	}
 
-	Dialog dialog_private = null;
-
 	public void dialogPrivate() {
-		dialog_private = new Dialog(this, R.style.ActionSheetDialogStyle_center);
-		View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_pri, null);
-		dialog_private.setContentView(inflate);
-		final TextView showContent = inflate.findViewById(R.id.show_content);
-		inflate.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				dialog_private.dismiss();
-				PrefUtils.putBoolean(SpConstant.ISAUTH, false, SplashActivity.this);
-				submitPrivacyGrantResult(false);
-				android.os.Process.killProcess(android.os.Process.myPid());
-				// finish();
-			}
-		});
-		inflate.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				submitPrivacyGrantResult(true);
-				PrefUtils.putBoolean(SpConstant.ISAUTH, true, SplashActivity.this);
-				dialog_private.dismiss();
-			}
-		});
-		// 异步方法
-//		MobSDK.getPrivacyPolicyAsync(MobSDK.POLICY_TYPE_URL, new PrivacyPolicy.OnPolicyListener() {
-		PrivacyPolicy.getPrivacyPolicyAsync(PrivacyPolicy.POLICY_TYPE_URL, new PrivacyPolicy.OnPolicyListener(){
-			@Override
-			public void onComplete(PrivacyPolicy data) {
-				if (data != null) {
-					// 富文本内容
-					String text = data.getContent();
-					Log.d("Moblink", "text==" + text);
-					if (showContent != null) {
-						showContent.setText(
-								MobSDK.getContext().getResources().getString(R.string.privacy_content) + "\n" +
-										MobSDK.getContext().getResources().getString(R.string.privacy_details) + " "
-										+ Html.fromHtml(text));
-
-					}
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable t) {
-			}
-		});
-		Window dialogWindow = dialog_private.getWindow();
-		dialogWindow.setGravity(Gravity.CENTER);
-		WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		dialogWindow.setAttributes(lp);
-		dialog_private.setCancelable(false);
-		if (!dialog_private.isShowing()) {
-			dialog_private.show();
-		}
+		PrivacyDialogUtils privacyDialogUtils = new PrivacyDialogUtils();
+		privacyDialogUtils.showPrivacyDialogIfNeed(this);
 	}
 
 	private void submitPrivacyGrantResult(boolean granted) {
