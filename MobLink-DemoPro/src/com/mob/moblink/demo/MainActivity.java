@@ -11,7 +11,6 @@ import com.mob.MobSDK;
 import com.mob.moblink.MobLink;
 import com.mob.moblink.demo.homepage.HomePage;
 import com.mob.moblink.demo.profile.MinePage;
-import com.mob.moblink.demo.util.PrivacyDialog;
 import com.mob.moblink.demo.util.statusbar.StatusBarCompat;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -32,12 +31,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		if (!MobSDK.isMob()) {
-			Intent intent = new Intent();
-			intent.setClass(this, PrivacyDialog.class);
-			startActivity(intent);
-		}
 
         StatusBarCompat.setStatusBarColor(this, Color.WHITE, true);
         if (null == sFirstInstance) {
